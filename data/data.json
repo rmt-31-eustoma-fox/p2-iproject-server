@@ -1,0 +1,29 @@
+{
+  "Users": [
+    {
+      "email": "admin@mail.com",
+      "password": "admin1"
+    }
+  ],
+  "Products": [
+    {
+      "name": "LAPIS ORIGINAL ",
+      "description": "Lapis Original yang di buat dengan menggunakan bahan premium (Wijsman Butter) dan di proses secara higenis tanpa bahan pengawet. Cocok untuk merayakan hari spesial bersama orang-orang tercinta, seperti Hari Raya Lebaran, Natal, Imlek atau sebagai teman santai Anda.",
+      "price": 195.0,
+      "imgUrl": "",
+      "CategoryId": 1,
+      "UserId": 1
+    }
+  ],
+  "Categories": [
+    {
+      "name": "SIGNATURE LAPIS LEGIT"
+    },
+    {
+      "name": "LAPIS SURABAYA COLLECTION"
+    },
+    {
+      "name": "NASTAR"
+    }
+  ]
+}
