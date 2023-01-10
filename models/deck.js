@@ -11,11 +11,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Deck.belongsTo(models.Profile, {onDelete: "cascade", onUpdate: "cascade"})
+      Deck.hasMany(models.DeckCard, {onDelete: "cascade", onUpdate: "cascade"})
     }
   }
   Deck.init({
-    name: DataTypes.STRING,
-    ProfileId: DataTypes.INTEGER
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    ProfileId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {model: "Profiles", key: "id"},
+      onDelete: "cascade",
+      onUpdate: "cascade"
+    }
   }, {
     sequelize,
     modelName: 'Deck',
