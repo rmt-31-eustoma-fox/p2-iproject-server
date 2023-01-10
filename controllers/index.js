@@ -187,7 +187,6 @@ class Controller {
           ProductId: products[i].ProductId,
         });
       }
-
       await Cart.destroy({
         where: {},
         truncate: true,
