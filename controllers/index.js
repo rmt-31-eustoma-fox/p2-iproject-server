@@ -141,6 +141,19 @@ class Controller{
             next(error)
         }
     }
+
+    static async getMyBooks(req, res, next){
+        try {
+            const mybooks = await MyBook.findAll({
+                where: {UserId: req.user.id},
+                attributes: {exclude: ['createdAt', 'updatedAt']}
+            })
+
+            res.status(200).json(mybooks)
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = Controller
