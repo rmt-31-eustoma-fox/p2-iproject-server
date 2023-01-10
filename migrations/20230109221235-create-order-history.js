@@ -27,6 +27,18 @@ module.exports = {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
+      // name: {
+      //   type: Sequelize.STRING,
+      // },
+      // price: {
+      //   type: Sequelize.STRING,
+      // },
+      // description: {
+      //   type: Sequelize.STRING,
+      // },
+      // imgUrl: {
+      //   type: Sequelize.STRING,
+      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -142,15 +142,10 @@ class Controller {
   static async deleteCart(req, res, next) {
     try {
       const { id } = req.params;
-      const deletedCart = await Cart.findByPk(id);
-
-      if (!deletedCart) {
-        throw { name: "Product with that id is not found" };
-      }
 
       await Cart.destroy({
         where: {
-          ProductId: id,
+          id,
           UserId: req.user.id,
         },
       });
@@ -165,12 +160,40 @@ class Controller {
     try {
       const orders = await OrderHistory.findAll({
         order: [["id", "ASC"]],
-        include: [User],
+        include: [User, Product],
         where: {
           UserId: req.user.id,
         },
       });
       res.status(200).json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async pay(req, res, next) {
+    try {
+      const products = await Cart.findAll({
+        order: [["id", "ASC"]],
+        include: [User],
+        where: {
+          UserId: req.user.id,
+        },
+      });
+
+      for (let i = 0; i < products.length; i++) {
+        await OrderHistory.create({
+          UserId: req.user.id,
+          ProductId: products[i].ProductId,
+        });
+      }
+
+      await Cart.destroy({
+        where: {},
+        truncate: true,
+      });
+
+      res.status(200).json({ message: `Payment Success` });
     } catch (error) {
       next(error);
     }
