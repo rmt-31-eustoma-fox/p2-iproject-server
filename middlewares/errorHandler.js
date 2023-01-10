@@ -17,6 +17,12 @@ const errorHandler = (error, req, res, next) => {
   } else if (error.name == 'IT' || error.name == 'JsonWebTokenError') {
     code = 401;
     message = 'Invalid token';
+  } else if (error.name == 'NF') {
+    code = 404;
+    message = 'Not found';
+  } else if (error.name == 'FB') {
+    code = 403;
+    message = 'Forbidden';
   }
 
   res.status(code).json({ message });

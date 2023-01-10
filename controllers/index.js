@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { signToken } = require('../helpers/jwt');
 const { comparePassword } = require('../helpers/bcrypt');
-const { User } = require('../models');
+const { User, Favorite } = require('../models');
 
 class Controller {
   static async agents(req, res, next) {
@@ -106,6 +106,82 @@ class Controller {
       // console.log({ user, created });
     } catch (error) {
       // console.log(error);
+      next(error);
+    }
+  }
+
+  static async addToFav(req, res, next) {
+    try {
+      const { agentUuid } = req.params;
+
+      const { data } = await axios({
+        method: 'get',
+        url: `https://valorant-api.com/v1/agents/${agentUuid}`,
+      });
+
+      console.log(data.data.displayName);
+
+      await Favorite.create({
+        UserId: req.user.id,
+        uuid: data.data.uuid,
+        displayName: data.data.displayName,
+        description: data.data.description,
+        imageUrl: data.data.fullPortrait,
+        role: data.data.role.displayName,
+        roleDesc: data.data.role.description,
+        ability1Name: data.data.abilities[0].displayName,
+        ability1Desc: data.data.abilities[0].description,
+        ability2Name: data.data.abilities[1].displayName,
+        ability2Desc: data.data.abilities[1].description,
+        ability3Name: data.data.abilities[2].displayName,
+        ability3Desc: data.data.abilities[2].description,
+        ultName: data.data.abilities[3].displayName,
+        ultDesc: data.data.abilities[3].description,
+      });
+
+      res.status(201).json({ message: 'Agent added to favorite!' });
+    } catch (error) {
+      //   console.log(error);
+      //   res.status(500).json({ msg: 'ise', error });
+      next(error);
+    }
+  }
+
+  static async favorites(req, res, next) {
+    try {
+      const data = await Favorite.findAll({ where: { UserId: req.user.id } });
+
+      res.status(200).json(data);
+    } catch (error) {
+      //   res.status(500).json({ message: 'ISE', error });
+      next(error);
+    }
+  }
+
+  static async removeFav(req, res, next) {
+    try {
+      const { id } = req.params;
+      await Favorite.destroy({ where: { id } });
+
+      res.status(200).json({ message: 'Removed from favorite' });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async agentDetail(req, res, next) {
+    try {
+      const { uuid } = req.params;
+
+      const { data } = await axios({
+        method: 'get',
+        url: `https://valorant-api.com/v1/agents/${uuid}`,
+      });
+
+      res.status(200).json(data);
+    } catch (error) {
+      console.log(error);
+      //   res.status(500).json({ msg: 'ise', error });
       next(error);
     }
   }
