@@ -10,12 +10,6 @@ const authentication = async (req, res, next) => {
 
     const payload = decodeToken(access_token);
 
-
-    if(payload.role !== "customer"){
-      throw {name: "forbidden"}
-    }
-
-
     const findUser = await User.findByPk(payload.id);
 
     if (!findUser) {
@@ -24,8 +18,7 @@ const authentication = async (req, res, next) => {
 
     req.user = {
       id: findUser.id,
-      email: findUser.email,
-      role: findUser.role
+
     };
     next();
   } catch (error) {

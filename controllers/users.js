@@ -24,24 +24,20 @@ class Controller {
       let transporter = nodemailer.createTransport({
         host: "smtp-mail.outlook.com",
         auth: {
-          user: "warofbattleships@outlook.com", // generated ethereal user
-          pass: "battleships123!!", // generated ethereal password
+          user: "warofbattleships@outlook.com", 
+          pass: "battleships123!!", 
         },
       });
 
-      // send mail with defined transport object
       let info = await transporter.sendMail({
-        from: 'warofbattleships@outlook.com', // sender address
-        to: email, // list of receivers
-        subject: "THANK YOU FOR JOINING OUR CREW", // Subject line
-        text: "hello there! I hope you enjoy playing war of battleships", // plain text body
-        html: "<h2>LET'S GO TO THE WAR!!!!! URRRAAAA</h2>", // html body
+        from: 'warofbattleships@outlook.com',
+        to: email, 
+        subject: "THANK YOU FOR JOINING OUR CREW", 
+        text: "hello there! I hope you enjoy playing war of battleships", 
+        html: "<h2>LET'S GO TO THE WAR!!!!! URRRAAAA</h2>", 
       });
 
       console.log("Message sent: %s", info.messageId);
-      // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-      // Preview only available when sending through an Ethereal account
       console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 
       const showUser = {
@@ -102,6 +98,27 @@ class Controller {
           role: "staff",
         },
       });
+
+      if(created){
+        let transporter = nodemailer.createTransport({
+          host: "smtp-mail.outlook.com",
+          auth: {
+            user: "warofbattleships@outlook.com", 
+            pass: "battleships123!!", 
+          },
+        });
+  
+        let info = await transporter.sendMail({
+          from: 'warofbattleships@outlook.com',
+          to: email, 
+          subject: "THANK YOU FOR JOINING OUR CREW", 
+          text: "hello there! I hope you enjoy playing war of battleships", 
+          html: "<h2>LET'S GO TO THE WAR!!!!! URRRAAAA</h2>", 
+        });
+  
+        console.log("Message sent: %s", info.messageId);
+        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+      }
 
       if (user) {
         const access_token = encodeToken({
