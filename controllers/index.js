@@ -154,6 +154,16 @@ class Controller{
             next(error)
         }
     }
+
+    static async updateReading(req, res, next){
+        try {
+            await MyBook.update({status: req.book.status}, {where: {id: req.params.id}})
+
+            res.status(200).json({message: "Reading progress has been updated"})
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = Controller

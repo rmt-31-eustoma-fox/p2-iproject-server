@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const Controller = require('../controllers')
-const { auth } = require('../middlewares')
+const { auth, authorize } = require('../middlewares')
 
 router.post("/register", Controller.register)
 router.post("/login", Controller.login)
@@ -11,5 +11,6 @@ router.use(auth)
 
 router.post("/mybooks", Controller.addMyBook)
 router.get("/mybooks", Controller.getMyBooks)
+router.patch("/mybooks/:id", authorize, Controller.updateReading)
 
 module.exports = router
