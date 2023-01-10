@@ -160,6 +160,21 @@ class Controller {
       next(error);
     }
   }
+
+  static async orderHistory(req, res, next) {
+    try {
+      const orders = await OrderHistory.findAll({
+        order: [["id", "ASC"]],
+        include: [User],
+        where: {
+          UserId: req.user.id,
+        },
+      });
+      res.status(200).json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = Controller;
