@@ -44,7 +44,7 @@ const errHandler = (error, req, res, next) => {
     } else if (error.name === "InvalidLog") {
         code = 401
         message = "Invalid email or password"
-    } else if(err.name === "InvalidToken" || err.name === 'JsonWebTokenError'){
+    } else if(error.name === "InvalidToken" || error.name === 'JsonWebTokenError'){
         code = 401
         message = "Invalid token"
     }

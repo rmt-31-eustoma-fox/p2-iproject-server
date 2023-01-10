@@ -18,5 +18,5 @@ app.use(router)
 app.use(errHandler)
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Here we go, come on ${port}`)
 })

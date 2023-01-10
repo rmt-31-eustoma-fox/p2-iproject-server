@@ -2,6 +2,7 @@ const { User, MyBook } = require('../models')
 const Mailjet = require('node-mailjet')
 const { comparePw, signToken } = require('../helpers')
 const mailjet = new Mailjet.apiConnect(process.env.API_KEY_MAILJET, process.env.SECRET_KEY_MAILJET)
+const axios = require('axios')
 
 class Controller{
     static async register(req, res, next){
@@ -111,6 +112,20 @@ class Controller{
             })
         } catch (err) {
             next(err)
+        }
+    }
+
+    static async getBooks(req, res, next){
+        try {
+            const { query } = req.query
+            const { data } = await axios({
+                method: "GET",
+                url: `https://www.googleapis.com/books/v1/volumes?q=${query}&orderBy=newest&filter=paid-ebooks&maxResults=40`
+            })
+            // console.log(books.data, '<<<<<<< cek');
+            res.status(200).json(data)
+        } catch (error) {
+            next(error)
         }
     }
 }
