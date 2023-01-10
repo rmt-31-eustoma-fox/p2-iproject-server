@@ -1,0 +1,402 @@
+[
+    {
+        "name": "Tunjungan Hotel",
+        "star": 5,
+        "address": "Jln. Tunjungan 102-104, Tegalsari, Surabaya, Jawa Timur, Indonesia, 60011",
+        "type": "Hotel",
+        "price": 415263,
+        "CityId": 1
+    },
+    {
+        "name": "Wyndham Hotel",
+        "star": 5,
+        "address": "Jalan Basuki Rahmat 67-73 , Genteng, Surabaya, Jawa Timur, Indonesia, 60271",
+        "type": "Hotel",
+        "price": 794999,
+        "CityId": 1
+    },
+    {
+        "name": "The Alana Hotel",
+        "star": 4,
+        "address": "Jalan Ketintang Baru I no. 10-12, Gayungan, Surabaya, Wonokromo, Surabaya, Jawa Timur, Indonesia, 60231",
+        "type": "Hotel",
+        "price": 579221,
+        "CityId": 1
+    },
+    {
+        "name": "Alimar Premier Hotel",
+        "star": 3,
+        "address": "Jalan Dr. Ir. H. Soekarno 134, Mulyorejo, Surabaya, Jawa Timur, Indonesia, 60115",
+        "type": "Hotel",
+        "price": 332690,
+        "CityId": 1
+    },
+    {
+        "name": "Evora Hotel",
+        "star": 3,
+        "address": "Jalan Menur No. 18-20 Surabaya, Gubeng, Surabaya, Jawa Timur, Indonesia, 60118",
+        "type": "Hotel",
+        "price": 260000,
+        "CityId": 1
+    },
+    {
+        "name": "Golden Tulip Holland Resort Batu",
+        "star": 5,
+        "address": "Jalan Cherry No 10 Panderman Hills, Batu, Malang, Jawa Timur, Indonesia, 65314",
+        "type": "Villa",
+        "price": 3528000,
+        "CityId": 2
+    },
+    {
+        "name": "Amartahills Hotel and Resort Batu",
+        "star": 4,
+        "address": "Komplek Amarta Hills,Jl. Abdul Gani Atas,Kec. Batu,J, Batu, Malang, Jawa Timur, Indonesia, 65311",
+        "type": "Hotel",
+        "price": 957600,
+        "CityId": 2
+    },
+    {
+        "name": "Sunday Villa Batu",
+        "star": 4,
+        "address": "Jalan Abdul Gani Atas, Komplek The Villa's Safira Kav 11 & 13, Batu , Batu, Malang, Jawa Timur, Indonesia, 65311",
+        "type": "Villa",
+        "price": 1995000,
+        "CityId": 2
+    },
+    {
+        "name": "Villa Panderman Indah",
+        "star": 3,
+        "address": "Jalan Abdul Gani Atas No.9 , Batu, Malang, Jawa Timur, Indonesia, 65311",
+        "type": "Villa",
+        "price": 757711,
+        "CityId": 2
+    },
+    {
+        "name": "P0 Hotel",
+        "star": 5,
+        "address": "Jl. Pemuda No 118, Semarang Tengah, Semarang, Jawa Tengah, Indonesia, 50132",
+        "type": "Hotel",
+        "price": 1100000,
+        "CityId": 3
+    },
+    {
+        "name": "Louis Kienne Hotel Simpang Lima",
+        "star": 4,
+        "address": "Jalan Ahmad Yani No. 137, Semarang Tengah, Semarang, Jawa Tengah, Indonesia, 50241",
+        "type": "Hotel",
+        "price": 688000,
+        "CityId": 3
+    },
+    {
+        "name": "Surya Boutique Hotel Kota Lama Semarang",
+        "star": 2,
+        "address": "Jalan Imam Bonjol 28, Semarang Tengah, Semarang, Jawa Tengah, Indonesia, 50139",
+        "type": "Hotel",
+        "price": 239022,
+        "CityId": 3
+    },
+    {
+        "name": "Hotel Ciputra Semarang",
+        "star": 5,
+        "address": "Jalan Simpang Lima No. 1 PO Box 1288, Semarang Tengah, Semarang, Jawa Tengah, Indonesia, 50134",
+        "type": "Hotel",
+        "price": 645000,
+        "CityId": 3
+    },
+    {
+        "name": "Melia Purosani Yogyakarta",
+        "star": 5,
+        "address": "Jl. Suryotomo 31, Kawasan Malioboro, Yogyakarta, Jalan Malioboro, Yogyakarta, Provinsi Yogyakarta, Indonesia, 55122",
+        "type": "Hotel",
+        "price": 1117053,
+        "CityId": 4
+    },
+    {
+        "name": "Sheraton Mustika Yogyakarta Resort & Spa",
+        "star": 5,
+        "address": "Jalan Laksda Adisucipto km 8.7 Depok, Depok, Yogyakarta, Provinsi Yogyakarta, Indonesia, 55282",
+        "type": "Hotel",
+        "price": 1029528,
+        "CityId": 4
+    },
+    {
+        "name": "INNSIDE Hotel",
+        "star": 4,
+        "address": "Jalan Ringroad Utara, Maguwoharjo, Depok, Sleman, Depok, Yogyakarta, Provinsi Yogyakarta, Indonesia, 55282",
+        "type": "Hotel",
+        "price": 2351976,
+        "CityId": 4
+    },
+    {
+        "name": "Yogyakarta Marriott Hotel",
+        "star": 5,
+        "address": "Jl. Ring Road Utara, Condong Catur, Depok, Yogyakarta, Provinsi Yogyakarta, Indonesia, 55283",
+        "type": "Hotel",
+        "price": 801000,
+        "CityId": 4
+    },
+    {
+        "name": "All Nite & Day Hotel Yogyakarta - Gejayan",
+        "star": 3,
+        "address": "Jl.Affandi-Gejayan No.17C Klitren, Kec. Gondokusuman, Gondokusuman, Yogyakarta, Provinsi Yogyakarta, Indonesia, 5522",
+        "type": "Hotel",
+        "price": 350056,
+        "CityId": 4
+    },
+    {
+        "name": "Royal Ambarrukmo Yogyakarta",
+        "star": 5,
+        "address": "Jalan Laksda Adisucipto No.81, Depok, Yogyakarta, Provinsi Yogyakarta, Indonesia, 55281",
+        "type": "Hotel",
+        "price": 838000,
+        "CityId": 4
+    },
+    {
+        "name": "eL Hotel Royale Bandung",
+        "star": 4,
+        "address": "Jl. Merdeka No.2, Merdeka, Bandung, Jawa Barat, Indonesia, 40111",
+        "type": "Hotel",
+        "price": 865830,
+        "CityId": 5
+    },
+    {
+        "name": "Grand Tjokro Premiere Bandung",
+        "star": 4,
+        "address": "Jalan Cihampelas No 211-217 Bandung 40131, Cihampelas, Bandung, Jawa Barat, Indonesia, 40131",
+        "type": "Hotel",
+        "price": 572418,
+        "CityId": 5
+    },
+    {
+        "name": "The Gaia Hotel Bandung",
+        "star": 5,
+        "address": "Jl. Dr. Setiabudi No.430 , Ledeng, Kecamatan Cidadap, Jawa Barat, Setiabudi, Bandung, Jawa Barat, Indonesia, 40143",
+        "type": "Hotel",
+        "price": 2308500,
+        "CityId": 5
+    },
+    {
+        "name": "Ivory Hotel Bandung",
+        "star": 5,
+        "address": "Jl.Bahureksa no 3 Bandung , Jalan Riau, Bandung, Jawa Barat, Indonesia, 40115",
+        "type": "Hotel",
+        "price": 1069317,
+        "CityId": 5
+    },
+    {
+        "name": "Hotel Alpha Classica",
+        "star": 2,
+        "address": "Jalan Tangkuban Perahu No.25, Lembang, Lembang, Bandung, Jawa Barat, Indonesia",
+        "type": "Hotel",
+        "price": 379414,
+        "CityId": 5
+    },
+    {
+        "name": "Hotel Indonesia Kempinski Jakarta",
+        "star": 5,
+        "address": "Jalan MH Thamrin No. 1, Thamrin, Jakarta Pusat, Jakarta, Indonesia, 10310",
+        "type": "Hotel",
+        "price": 4028998,
+        "CityId": 6
+    },
+    {
+        "name": "ASTON Priority Simatupang & Conference Center",
+        "star": 4,
+        "address": "Jl. Let. Jend. T.B. Simatupang Kav. 9 Kebagusan, Cilandak, Kebagusan, Jakarta, Indonesia, 12520",
+        "type": "Hotel",
+        "price": 868780,
+        "CityId": 6
+    },
+    {
+        "name": "The St. Regis Jakarta",
+        "star": 5,
+        "address": "Rajawali Place, Jalan HR Rasuna Said, Kav. B/4, Setiabudi, Kuningan, Setiabudi, Jakarta, Indonesia, 12910",
+        "type": "Hotel",
+        "price": 4961000,
+        "CityId": 6
+    },
+    {
+        "name": "grandkemang Hotel",
+        "star": 4,
+        "address": "Jalan Kemang Raya 2 H, Kebayoran Baru, Kemang, Mampang, Jakarta, Indonesia, 12730",
+        "type": "Hotel",
+        "price": 558599,
+        "CityId": 6
+    },
+    {
+        "name": "The Langham Jakarta",
+        "star": 5,
+        "address": "District 8, SCBD, Lot 28, Jakarta, Kebayoran Baru, Senayan, Jakarta, Indonesia, 12190",
+        "type": "Hotel",
+        "price": 4877673,
+        "CityId": 6
+    },
+    {
+        "name": "Aloft Jakarta Wahid Hasyim",
+        "star": 4,
+        "address": "Jalan K.H Wahid Hasyim No. 92 Menteng, Menteng, Kebon Sirih, Jakarta, Indonesia, 1034",
+        "type": "Hotel",
+        "price": 745000,
+        "CityId": 6
+    },
+    {
+        "name": "Hotel Kaisar Jakarta",
+        "star": 3,
+        "address": "Jalan PLN No. 1 Duren Tiga, Pancoran, Jakarta Selatan, Jakarta, Indonesia, 12780",
+        "type": "Hotel",
+        "price": 572500,
+        "CityId": 6
+    },
+    {
+        "name": "ASTON Denpasar Hotel & Convention Center",
+        "star": 4,
+        "address": "Jalan Gatot Subroto No. 283, Denpasar Utara, Denpasar, Bali, Indonesia, 80231",
+        "type": "Hotel",
+        "price": 469437,
+        "CityId": 7
+    },
+    {
+        "name": "HARRIS Hotel and Conventions Denpasar Bali",
+        "star": 4,
+        "address": "Jl. H.O.S. Cokroaminoto 23 - 25, Denpasar, Denpasar Utara, Denpasar, Bali, Indonesia, 80118",
+        "type": "Hotel",
+        "price": 390600,
+        "CityId": 7
+    },
+    {
+        "name": "Hotel Neo Denpasar by ASTON",
+        "star": 3,
+        "address": "Jl. Gatot Subroto Barat, Padangsambian Kaja, Denpasar Barat, Denpasar, Bali, Indonesia, 80117",
+        "type": "Hotel",
+        "price": 353241,
+        "CityId": 7
+    },
+    {
+        "name": "Four Star by Trans Hotel",
+        "star": 4,
+        "address": "Jalan Raya Puputan no 200, Denpasar Selatan, Denpasar, Bali, Indonesia, 80239",
+        "type": "Hotel",
+        "price": 705600,
+        "CityId": 7
+    },
+    {
+        "name": "Praja Hotel",
+        "star": 3,
+        "address": "Jalan Mohamad Yamin IV No. 2, Denpasar Selatan, Denpasar, Bali, Indonesia, 80226",
+        "type": "Hotel",
+        "price": 317520,
+        "CityId": 7
+    },
+    {
+        "name": "The Royal Kimberley Suites",
+        "star": 2,
+        "address": "Jalan Gunung Payung Gang Balinesia no.2, Denpasar, Denpasar Barat, Denpasar, Bali, Indonesia, 80361",
+        "type": "Villa",
+        "price": 882745,
+        "CityId": 7
+    },
+    {
+        "name": "The Banyumas Villa",
+        "star": 4,
+        "address": "Jalan Banyumas No 1, Denpasar Barat, Denpasar, Bali, Indonesia, 80225",
+        "type": "Villa",
+        "price": 582120,
+        "CityId": 7
+    },
+    {
+        "name": "Omatha Village",
+        "star": 3,
+        "address": "Jalan Kembang Matahari I / 110B, Denpasar, Denpasar Timur, Denpasar, Bali, Indonesia, 80236",
+        "type": "Villa",
+        "price": 859856,
+        "CityId": 7
+    },
+    {
+        "name": "Kayu Suar Bali Luxury Villas and Spa",
+        "star": 4,
+        "address": "Jalan Mertasari Sidakarya No.151 Sanur, Denpasar Selatan, Denpasar, Bali, Indonesia, 80361",
+        "type": "Villa",
+        "price": 1649340,
+        "CityId": 7
+    },
+    {
+        "name": "Wyndham Opi Hotel Palembang",
+        "star": 5,
+        "address": "Komplek Opi Mall, Jl. Gubernur H.A. Bastari, Sungai Kedukan, Rambutan, Plaju, Palembang, Sumatera Selatan, Indonesia, 30967",
+        "type": "Hotel",
+        "price": 758100,
+        "CityId": 8
+    },
+    {
+        "name": "The Alts Hotel",
+        "star": 4,
+        "address": "JL. Rajawali No. 8, Ilir Timur II, Palembang, Sumatera Selatan, Indonesia, 30113",
+        "type": "Hotel",
+        "price": 617400,
+        "CityId": 8
+    },
+    {
+        "name": "Aryaduta Palembang",
+        "star": 4,
+        "address": "Jalan POM IX Palembang Square, Ilir Barat I, Palembang, Sumatera Selatan, Indonesia, 30137",
+        "type": "Hotel",
+        "price": 665664,
+        "CityId": 8
+    },
+    {
+        "name": "Hotel Harvani",
+        "star": 2,
+        "address": "Jalan Dr M.Isa No. 178, Kecamatan Ilir Timur 3, Ilir Timur II, Palembang, Sumatera Selatan, Indonesia, 30114",
+        "type": "Hotel",
+        "price": 245000,
+        "CityId": 8
+    },
+    {
+        "name": "Adimulia Hotel Medan",
+        "star": 4,
+        "address": "Jl. Pangeran Diponegoro No.8 Medan Kota, Pusat Kota Medan, Medan, Sumatera Utara, Indonesia, 20112",
+        "type": "Hotel",
+        "price": 1045000,
+        "CityId": 9
+    },
+    {
+        "name": "Cambridge Hotel Medan",
+        "star": 5,
+        "address": "Jalan Letjend. S Parman No. 217, Pusat Kota Medan, Medan, Sumatera Utara, Indonesia, 20152",
+        "type": "Hotel",
+        "price": 1045000,
+        "CityId": 9
+    },
+    {
+        "name": "Swiss-Belinn Medan",
+        "star": 3,
+        "address": "Jl Surabaya 88, Pusat Kota Medan, Medan, Sumatera Utara, Indonesia, 20212",
+        "type": "Hotel",
+        "price": 485000,
+        "CityId": 9
+    },
+    {
+        "name": "Hotel Santika Premiere Padang",
+        "star": 4,
+        "address": "Jl.Ahmad Yani No.20, Padang - Sumatera Barat Indonesia, Padang Barat, Padang, Sumatera Barat, Indonesia, 25112",
+        "type": "Hotel",
+        "price": 800800,
+        "CityId": 10
+    },
+    {
+        "name": "The ZHM Premiere (d/h Grand Zuri) Padang",
+        "star": 4,
+        "address": "Jl. MH Thamrin No. 27 , Padang Selatan, Padang, Sumatera Barat, Indonesia, 25133",
+        "type": "Hotel",
+        "price": 692000,
+        "CityId": 10
+    },
+    {
+        "name": "Daima Hotel Padang",
+        "star": 3,
+        "address": "Jl. Jend. Sudirman No 17, Padang Barat, Padang, Sumatera Barat, Indonesia, 25112",
+        "type": "Hotel",
+        "price": 399000,
+        "CityId": 10
+    }
+]

@@ -8,6 +8,9 @@ const errorHandler = (error, req, res, next) => {
     } else if (error.name == 'Invalid') {
         code = 401
         message = 'Invalid email/password'
+    } else if (error.name == 'InvalidCityId') {
+        code = 404
+        message = 'City not found'
     }
 
     res.status(code).json({message})

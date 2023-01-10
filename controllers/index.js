@@ -1,6 +1,6 @@
 const { compareHash } = require('../helpers/bcrypt')
 const { signToken } = require('../helpers/jwt')
-const { User, City } = require('../models')
+const { User, City, Accomodation } = require('../models')
 
 class Controller {
     static async register (req, res, next) {
@@ -40,6 +40,26 @@ class Controller {
         try {
             const cities = await City.findAll()
             res.status(200).json(cities)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async showAccomodationByCity (req, res, next) {
+        const {CityId} = req.params
+        try {
+            const city = await City.findByPk(CityId)
+            if (!city) {
+                throw {name: 'InvalidCityId'}
+            } else {
+                const accomodations = await Accomodation.findAll({
+                    where: {CityId},
+                    include: [
+                        {model: City, attributes: ['name']}
+                    ]
+                })
+                res.status(200).json(accomodations)
+            }
         } catch (error) {
             next(error)
         }
