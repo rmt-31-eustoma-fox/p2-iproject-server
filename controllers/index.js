@@ -34,8 +34,7 @@ class Controller{
            
             res.status(201).json({
                 id: newUser.id,
-                username:
-                newUser.username,
+                username: newUser.username,
                 email: newUser.email,
                 notification: request.response.data.Messages[0]
             })
@@ -62,6 +61,56 @@ class Controller{
             })
         } catch (error) {
             next(error)
+        }
+    }
+
+    static async loginByGoogle(req, res, next){
+        try {
+            const token = req.headers["google-oauth-token"]
+           
+            const ticket = await client.verifyIdToken({
+                idToken: token,
+                audience: process.env.CLIENT_ID
+            });
+            const {name, email} = ticket.getPayload();
+
+            const [user, created] = await User.findOrCreate({
+                where: {email},
+                defaults: {
+                    username: name,
+                    email,
+                    password: "google"
+                },
+                hooks: false
+            })
+
+            await mailjet.post("send", {'version': 'v3.1'}).request({
+                "Messages":[
+                    {
+                    "From": {
+                        "Email": "erissusanto997@gmail.com",
+                        "Name": "Eris"
+                    },
+                    "To": [
+                        {
+                        "Email": email,
+                        "Name": name
+                        }
+                    ],
+                    "Subject": "Hai, good readers.",
+                    "TextPart": "My first Mailjet email",
+                    "HTMLPart": `<h3>Dear ${name}, welcome to GarageReading</a>!</h3><br />Hope you get new insight`,
+                    "CustomID": `user${user.id}`
+                    }
+                ]
+            })
+
+            res.status(200).json({
+                access_token: signToken({id: user.id}),
+                name: user.username
+            })
+        } catch (err) {
+            next(err)
         }
     }
 }
