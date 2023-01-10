@@ -10,5 +10,6 @@ router.get("/books", Controller.getBooks)
 router.use(auth)
 
 router.post("/mybooks", Controller.addMyBook)
+router.get("/mybooks", Controller.getMyBooks)
 
 module.exports = router
