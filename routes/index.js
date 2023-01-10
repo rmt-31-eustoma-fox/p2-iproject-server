@@ -2,8 +2,6 @@ const express = require('express');
 const Controller = require('../controllers');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('Hello World! dari routes');
-});
+router.get('/agents', Controller.agents);
 
 module.exports = router;
