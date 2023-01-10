@@ -122,7 +122,18 @@ class Controller{
                 method: "GET",
                 url: `https://www.googleapis.com/books/v1/volumes?q=${query}&orderBy=newest&filter=paid-ebooks&maxResults=40`
             })
-            
+
+            let category = "inspirational"
+            const quote = await axios({
+                method: "GET",
+                url: "https://api.api-ninjas.com/v1/quotes?category=" + category,
+                headers: {
+                    'X-Api-Key': process.env.NINJA_API_KEY
+                  }
+            })
+
+            data.apiquotes = quote.data[0]
+
             res.status(200).json(data)
         } catch (error) {
             next(error)
