@@ -22,6 +22,14 @@ class Today{
             next(error)
         }
     }
+    static async getCategory(req, res, next){
+        try {
+            const allCategory = await Category.findAll()
+            res.status(200).json({statuscode:200, data:allCategory})
+        } catch (error) {
+            next(error)
+        }
+    }
     static async addTodo(req, res, next){
         try {
             const {id} = req.user
@@ -78,8 +86,11 @@ class Today{
             const {id} = req.user
             const allTodoById = await Todolist.findAll({
                 where:{[Op.and]:[{TodoId:todoid},{UserId:id}]},
-                include:[{model:Todo, attributes:{exclude:['UserId']}},{model:User}]
+                include:[{model:Todo, attributes:{exclude:['UserId']}},{model:User, attributes:{exclude:['password']}}]
             })
+            if(allTodoById.length == 0){
+                throw{name:'not_found   '}
+            }
             res.status(200).json({statuscode:200, data:allTodoById})
         } catch (error) {
             next(error)

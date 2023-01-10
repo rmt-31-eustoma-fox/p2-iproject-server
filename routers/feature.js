@@ -4,6 +4,7 @@ const {authorDelete, authorPost} = require('../middlewares/authorization')
 const router = require('express').Router()
 
 router.post('/category', Today.addCategory)
+router.get('/category', Today.getCategory)
 router.delete('/category/:categoryid', Today.destroyCategory)
 router.get('/todo',Today.findTodo)
 router.post('/todo', Today.addTodo)

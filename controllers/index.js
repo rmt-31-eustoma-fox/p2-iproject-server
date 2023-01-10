@@ -5,12 +5,23 @@ class Index{
     static async register(req, res, next){
         try {
         const {fullname, email, password, imageUrl,role } = req.body
-        const regUser = await User.create({fullname, email, password, imageUrl, role})
+        const regUser = await User.create({fullname, email, password, imageUrl, role:'employer'})
         res.status(201).json({
             statuscode:201,
             id: regUser.id, name:regUser.fullname ,email: regUser.email})            
         } catch (error) {
          next(error);   
+        }
+    }
+    static async regSpv(req, res, next){
+        try {
+            const {fullname, email, password, imageUrl } = req.body
+            const regspv = await User.create({fullname, email, password, imageUrl, role:'supervisor'})
+            res.status(201).json({
+                statuscode:201,
+                id: regspv.id, name:regspv.fullname ,email: regspv.email})
+        } catch (error) {
+            next(error)
         }
     }
     static async login(req, res, next){
