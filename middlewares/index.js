@@ -30,7 +30,7 @@ const authorize = async (req, res, next) => {
         } else if(mybook.status == "Currently reading"){
             req.book = {status: "Has been read"}
         }
-
+        
         next()
     } catch (err) {
         next(err)
