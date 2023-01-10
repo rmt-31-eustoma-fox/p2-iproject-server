@@ -105,6 +105,61 @@ class Controller {
       next(error);
     }
   }
+
+  static async cart(req, res, next) {
+    try {
+      const products = await Cart.findAll({
+        order: [["ProductId", "ASC"]],
+        include: [User, Product],
+        where: {
+          UserId: req.user.id,
+        },
+      });
+      res.status(200).json(products);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async addCart(req, res, next) {
+    try {
+      const { id } = req.params;
+      const selectedProduct = await Product.findByPk(id);
+
+      if (!selectedProduct) throw { name: "Product with that id is not found" };
+
+      await Cart.create({
+        UserId: req.user.id,
+        ProductId: id,
+      });
+
+      res.status(200).json({ message: `Product successfully add to Shopping Cart` });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async deleteCart(req, res, next) {
+    try {
+      const { id } = req.params;
+      const deletedCart = await Cart.findByPk(id);
+
+      if (!deletedCart) {
+        throw { name: "Product with that id is not found" };
+      }
+
+      await Cart.destroy({
+        where: {
+          ProductId: id,
+          UserId: req.user.id,
+        },
+      });
+
+      res.status(200).json({ message: `Product successfully remove from Shopping Cart` });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = Controller;
