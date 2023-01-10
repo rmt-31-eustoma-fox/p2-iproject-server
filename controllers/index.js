@@ -5,7 +5,7 @@ class Index{
     static async register(req, res, next){
         try {
         const {fullname, email, password, imageUrl,role } = req.body
-        const regUser = await User.create({fullname, email, password, imageUrl, role    })
+        const regUser = await User.create({fullname, email, password, imageUrl, role})
         res.status(201).json({
             statuscode:201,
             id: regUser.id, name:regUser.fullname ,email: regUser.email})            

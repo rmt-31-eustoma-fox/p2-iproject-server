@@ -17,12 +17,71 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Todo.init({
-    nameTodo: DataTypes.STRING,
-    dateStart: DataTypes.DATE,
-    dateEnd: DataTypes.STRING,
-    CategoryId: DataTypes.INTEGER,
-    UserId: DataTypes.INTEGER,
-    level: DataTypes.STRING
+    nameTodo:{
+      type: DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:'name todo is require'
+        }
+      }
+    },
+    dateStart:{
+      type: DataTypes.DATE,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg: 'date is require'
+        },
+      },
+
+    },
+    dateEnd:{
+      type: DataTypes.DATE,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:'date End is require'
+        },
+        isAfter: '2022-01-01'
+      }
+    },
+    CategoryId: {
+      allowNull:false,
+      type:DataTypes.INTEGER,
+      validate:{
+        notNull:{
+          msg:'category is require'
+        }
+      }
+    },
+    UserId: {
+      type:DataTypes.INTEGER,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:'User is require'
+        }
+      }
+    },
+    level:{
+      type: DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:'level is require'
+        }
+      }
+    },
+    statusTodo:{
+      type: DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:'status Todo is require'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Todo',

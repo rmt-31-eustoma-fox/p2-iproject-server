@@ -12,10 +12,37 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Todolist.belongsTo(models.Todo)
+      Todolist.belongsTo(models.User)
     }
   }
   Todolist.init({
-    nameList: DataTypes.STRING
+    nameList: {
+      type:DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg: 'namelist is require'
+        }
+      }
+    },
+    TodoId: {
+      allowNull:false,
+      type: DataTypes.INTEGER,
+      validate:{
+        notNull:{
+        msg:'Todo Id is require'
+       }
+      }
+    },
+    UserId: {
+      allowNull:false,
+      type: DataTypes.INTEGER,
+      validate:{
+        notNull:{
+        msg:'User Id is require'
+      }
+      }
+    },
   }, {
     sequelize,
     modelName: 'Todolist',
