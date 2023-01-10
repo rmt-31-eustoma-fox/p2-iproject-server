@@ -1,4 +1,5 @@
 const { User } = require("../models");
+const nodemailer = require("nodemailer");
 
 const { encodeToken, comparePassword } = require("../helpers");
 
@@ -19,6 +20,29 @@ class Controller {
         address,
         role: "admin",
       });
+
+      let transporter = nodemailer.createTransport({
+        host: "smtp-mail.outlook.com",
+        auth: {
+          user: "warofbattleships@outlook.com", // generated ethereal user
+          pass: "battleships123!!", // generated ethereal password
+        },
+      });
+
+      // send mail with defined transport object
+      let info = await transporter.sendMail({
+        from: 'warofbattleships@outlook.com', // sender address
+        to: email, // list of receivers
+        subject: "THANK YOU FOR JOINING OUR CREW", // Subject line
+        text: "hello there! I hope you enjoy playing war of battleships", // plain text body
+        html: "<h2>LET'S GO TO THE WAR!!!!! URRRAAAA</h2>", // html body
+      });
+
+      console.log("Message sent: %s", info.messageId);
+      // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+      // Preview only available when sending through an Ethereal account
+      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 
       const showUser = {
         id: newUser.id,
