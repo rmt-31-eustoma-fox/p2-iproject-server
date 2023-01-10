@@ -122,8 +122,21 @@ class Controller{
                 method: "GET",
                 url: `https://www.googleapis.com/books/v1/volumes?q=${query}&orderBy=newest&filter=paid-ebooks&maxResults=40`
             })
-            // console.log(books.data, '<<<<<<< cek');
+            
             res.status(200).json(data)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async addMyBook(req, res, next){
+        try {
+            req.body.UserId = req.user.id
+            const newMyBook = await MyBook.create(req.body)
+
+            const mybook = await MyBook.findByPk(newMyBook.id, {attributes: {exclude: ['createdAt', 'updatedAt']}})
+
+            res.status(201).json(mybook)
         } catch (error) {
             next(error)
         }
