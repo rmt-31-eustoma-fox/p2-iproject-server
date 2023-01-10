@@ -2,6 +2,8 @@ const errorHandler = (err, req, res, next) => {
   let code = 500;
   let message = "Internal Server Error";
 
+  console.log(err, "iniapa");
+
   if (err.name === "SequelizeValidationError" || err.name === "SequelizeUniqueConstraintError") {
     code = 400;
     message = err.errors[0].message;

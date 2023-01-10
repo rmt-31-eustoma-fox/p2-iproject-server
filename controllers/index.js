@@ -3,6 +3,7 @@ const { hashPassword, comparePassword } = require("../helpers/bcrypt");
 const { generateToken } = require("../helpers/jwt");
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.CLIENT_ID);
+const { Op } = require("sequelize");
 
 class Controller {
   static async register(req, res, next) {
@@ -66,6 +67,40 @@ class Controller {
       const access_token = generateToken(payload);
 
       res.status(200).json({ access_token, username: user.username });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async products(req, res, next) {
+    try {
+      let { filter } = req.query;
+      let paramQuerySQL = {};
+
+      // filtering by category
+      if (filter !== "" && typeof filter !== "undefined") {
+        const query = filter.category.split(",").map((item) => ({
+          [Op.eq]: item,
+        }));
+        paramQuerySQL.where = {
+          CategoryId: { [Op.or]: query },
+        };
+      }
+
+      const products = await Product.findAll(paramQuerySQL);
+
+      if (products) res.status(200).json(products);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async categories(req, res, next) {
+    try {
+      const categories = await Category.findAll({
+        order: [["name", "Desc"]],
+      });
+      res.status(200).json(categories);
     } catch (error) {
       next(error);
     }
