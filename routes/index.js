@@ -11,4 +11,8 @@ router.get("/categories", Controller.categories);
 
 router.use(authentication);
 
+router.get("/cart", Controller.cart);
+router.post("/cart/:id", Controller.addCart);
+router.delete("/cart/:id", Controller.deleteCart);
+
 module.exports = router;
