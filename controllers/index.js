@@ -1,6 +1,6 @@
 const { compareHash } = require('../helpers/bcrypt')
 const { signToken } = require('../helpers/jwt')
-const { User, City, Accomodation } = require('../models')
+const { User, City, Accomodation, Image } = require('../models')
 
 class Controller {
     static async register (req, res, next) {
@@ -55,7 +55,8 @@ class Controller {
                 const accomodations = await Accomodation.findAll({
                     where: {CityId},
                     include: [
-                        {model: City, attributes: ['name']}
+                        {model: City, attributes: ['name']},
+                        {model: Image, attributes: ['imageUrl']}
                     ]
                 })
                 res.status(200).json(accomodations)
