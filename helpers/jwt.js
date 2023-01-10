@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const SASUKEEENARUTOOOO = process.env.JWT_SECRET
+const SASUKEEENARUTOOOO = "GundamStrikeFreedom"
 
 const encodeToken = (payload) => {
     return jwt.sign(payload, SASUKEEENARUTOOOO)

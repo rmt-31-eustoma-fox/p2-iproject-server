@@ -35,6 +35,22 @@ module.exports = (sequelize, DataTypes) => {
         msg: "Email has been taken"
       },
     },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg : "Username is required"
+        },
+        notEmpty: {
+          msg : "Username is required"
+        }
+      },
+      unique: {
+        args: true,
+        msg: "Username has been taken"
+      },
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,

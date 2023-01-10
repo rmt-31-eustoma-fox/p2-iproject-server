@@ -16,22 +16,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Profile.init({
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg : "Username is required"
-        },
-        notEmpty: {
-          msg : "Username is required"
-        }
-      },
-      unique: {
-        args: true,
-        msg: "Username has been taken"
-      },
-    },
     image: DataTypes.TEXT,
     UserId: {
       type: DataTypes.INTEGER,
