@@ -6,6 +6,7 @@ router.post("/register", Controller.register)
 router.post("/login", Controller.login)
 router.post("/google-sign-in", Controller.loginByGoogle)
 router.get("/books", Controller.getBooks)
+router.get("/quotes", Controller.getQuotes)
 
 router.use(auth)
 

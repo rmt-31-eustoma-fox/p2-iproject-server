@@ -124,8 +124,16 @@ class Controller{
                 url: `https://www.googleapis.com/books/v1/volumes?q=${query}&orderBy=newest&filter=paid-ebooks&maxResults=40`
             })
 
+            res.status(200).json(data)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async getQuotes(req, res, next){
+        try {
             let category = "inspirational"
-            const quote = await axios({
+            const { data } = await axios({
                 method: "GET",
                 url: "https://api.api-ninjas.com/v1/quotes?category=" + category,
                 headers: {
@@ -133,9 +141,7 @@ class Controller{
                   }
             })
 
-            data.apiquotes = quote.data[0]
-
-            res.status(200).json(data)
+            res.status(200).json(data[0])
         } catch (error) {
             next(error)
         }
