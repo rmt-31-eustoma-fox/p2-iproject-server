@@ -25,6 +25,12 @@ const authorize = async (req, res, next) => {
         if(!mybook) throw {name: "DataNotFound"}
         if(mybook.UserId != req.user.id) throw {name: "Forbidden"}
 
+        if(mybook.status == "Want to read"){
+            req.book = {status: "Currently reading"}
+        } else if(mybook.status == "Currently reading"){
+            req.book = {status: "Has been read"}
+        }
+
         next()
     } catch (err) {
         next(err)
@@ -47,6 +53,12 @@ const errHandler = (error, req, res, next) => {
     } else if(error.name === "InvalidToken" || error.name === 'JsonWebTokenError'){
         code = 401
         message = "Invalid token"
+    } else if (error.name === "Forbidden") {
+        code = 403
+        message = "You are unauthorized"
+    } else if (error.name === "DataNotFound") {
+        code = 404
+        message = "Book not found"
     }
 
     res.status(code).json({message: message})
