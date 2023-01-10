@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Surabaya",
+        "province": "Jawa Timur",
+        "country": "Indonesia",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Taman_suroboyo.jpg"
+    },
+    {
+        "name": "Malang",
+        "province": "Jawa Timur",
+        "country": "Indonesia",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/96/Tugu_Malang.jpg"
+    },
+    {
+        "name": "Semarang",
+        "province": "Jawa Tengah",
+        "country": "Indonesia",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Lawang_Sewu_in_Semarang_City.jpg/2880px-Lawang_Sewu_in_Semarang_City.jpg"
+    },
+    {
+        "name": "Yogyakarta",
+        "province": "DIY",
+        "country": "Indonesia",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Yogyakarta_Indonesia_Tugu-Yogyakarta-02.jpg/1200px-Yogyakarta_Indonesia_Tugu-Yogyakarta-02.jpg"
+    },
+    {
+        "name": "Bandung",
+        "province": "Jawa Barat",
+        "country": "Indonesia",
+        "imageUrl": "https://images.contentstack.io/v3/assets/blt00454ccee8f8fe6b/blt7f86b6cf7e72ffe7/61bc491f85b59c201581b414/US_Bandung_ID_Header.jpg?width=1680&quality=70&auto=webp"
+    },
+    {
+        "name": "Jakarta",
+        "province": "DKI Jakarta",
+        "country": "Indonesia",
+        "imageUrl": "https://swamediainc.storage.googleapis.com/swa.co.id/wp-content/uploads/2022/02/10150333/dki-jakarta.jpg"
+    },
+    {
+        "name": "Denpasar",
+        "province": "Bali",
+        "country": "Indonesia",
+        "imageUrl": "https://www.indonesia.travel/content/dam/indtravelrevamp/en/destinations/bali-nusa-tenggara/bali/denpasar/denpasar1.jpg"
+    },
+    {
+        "name": "Palembang",
+        "province": "Sumatera Selatan",
+        "country": "Indonesia",
+        "imageUrl": "http://assets.kompasiana.com/items/album/2021/02/07/ampera-bridge-601ffbe68ede4815dd742f92.jpg"
+    },
+    {
+        "name": "Medan",
+        "province": "Sumatera Utara",
+        "country": "Indonesia",
+        "imageUrl": "https://www.rumah123.com/seo-cms/assets/Medan_Kota_c5625f2988/Medan_Kota_c5625f2988.webp"
+    },
+    {
+        "name": "Padang",
+        "province": "Sumatera Barat",
+        "country": "Indonesia",
+        "imageUrl": "https://asset.kompas.com/crops/ZG4UWTLI1EhaBaRqq1zcWxNGhlA=/0x0:1000x667/750x500/data/photo/2020/08/28/5f48688bddfb2.jpg"
+    }
+]

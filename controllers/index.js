@@ -1,6 +1,6 @@
 const { compareHash } = require('../helpers/bcrypt')
 const { signToken } = require('../helpers/jwt')
-const {User} = require('../models')
+const { User, City } = require('../models')
 
 class Controller {
     static async register (req, res, next) {
@@ -32,6 +32,15 @@ class Controller {
             }
         } catch (error) {
             console.log(error);
+            next(error)
+        }
+    }
+
+    static async showCities (req, res, next) {
+        try {
+            const cities = await City.findAll()
+            res.status(200).json(cities)
+        } catch (error) {
             next(error)
         }
     }
