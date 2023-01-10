@@ -38,6 +38,15 @@ const errHandler = (error, req, res, next) => {
     if (error.name === "SequelizeValidationError") {
         code = 400
         message = error.errors[0].message
+    } else if (error.name === "RequiredDataLog") {
+        code = 400
+        message = "Email or password is required"
+    } else if (error.name === "InvalidLog") {
+        code = 401
+        message = "Invalid email or password"
+    } else if(err.name === "InvalidToken" || err.name === 'JsonWebTokenError'){
+        code = 401
+        message = "Invalid token"
     }
 
     res.status(code).json({message: message})

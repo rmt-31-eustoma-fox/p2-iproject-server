@@ -1,5 +1,6 @@
 const { User, MyBook } = require('../models')
 const Mailjet = require('node-mailjet')
+const { comparePw, signToken } = require('../helpers')
 const mailjet = new Mailjet.apiConnect(process.env.API_KEY_MAILJET, process.env.SECRET_KEY_MAILJET)
 
 class Controller{
@@ -37,6 +38,27 @@ class Controller{
                 newUser.username,
                 email: newUser.email,
                 notification: request.response.data.Messages[0]
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async login(req, res, next){
+        try {
+            const { email, password } = req.body
+            if(!email) throw {name: "RequiredDataLog" }
+            if(!password) throw {name: "RequiredDataLog" }
+
+            const user = await User.findOne({ where: { email } })
+            if(!user) throw { name: "InvalidLog" }
+
+            const validPwd = comparePw(password, user.password)
+            if(!validPwd) throw { name: "InvalidLog" }
+
+            res.status(200).json({
+                access_token: signToken({id: user.id}),
+                name: user.username
             })
         } catch (error) {
             next(error)
