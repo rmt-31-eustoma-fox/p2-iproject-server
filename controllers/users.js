@@ -3,9 +3,9 @@ const nodemailer = require("nodemailer");
 
 const { encodeToken, comparePassword } = require("../helpers");
 
-// const CLIENT_ID = process.env["CLIENT_ID"];
-// const { OAuth2Client } = require("google-auth-library");
-// const client = new OAuth2Client(CLIENT_ID);
+const CLIENT_ID = process.env["CLIENT_ID"];
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client(CLIENT_ID);
 
 class Controller {
   static async create(req, res, next) {
@@ -82,38 +82,39 @@ class Controller {
     }
   }
 
-  // static async googleLogin(req, res, next) {
-  //   try {
-  //     const access_token = req.headers.access_token;
+  static async googleLogin(req, res, next) {
+    try {
+      console.log("masuk");
+      const access_token = req.headers.access_token;
 
-  //     const ticket = await client.verifyIdToken({
-  //       idToken: access_token,
-  //       audience: CLIENT_ID,
-  //     });
-  //     const { email, name } = ticket.getPayload();
+      const ticket = await client.verifyIdToken({
+        idToken: access_token,
+        audience: CLIENT_ID,
+      });
+      const { email, name } = ticket.getPayload();
 
-  //     const [user, created] = await User.findOrCreate({
-  //       where: { email },
-  //       defaults: {
-  //         username: name,
-  //         email,
-  //         password: "password",
-  //         role: "staff",
-  //       },
-  //     });
+      const [user, created] = await User.findOrCreate({
+        where: { email },
+        defaults: {
+          username: name,
+          email,
+          password: "password",
+          role: "staff",
+        },
+      });
 
-  //     if (user) {
-  //       const access_token = encodeToken({
-  //         id: user.id,
-  //       });
-  //       res
-  //         .status(200)
-  //         .json({ access_token, username: user.username, role: user.role });
-  //     }
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+      if (user) {
+        const access_token = encodeToken({
+          id: user.id,
+        });
+        res
+          .status(200)
+          .json({ access_token, username: user.username, role: user.role });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = Controller;
