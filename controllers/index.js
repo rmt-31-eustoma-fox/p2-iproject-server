@@ -3,6 +3,7 @@ const Mailjet = require('node-mailjet')
 const { comparePw, signToken } = require('../helpers')
 const mailjet = new Mailjet.apiConnect(process.env.API_KEY_MAILJET, process.env.SECRET_KEY_MAILJET)
 const axios = require('axios')
+const { Op } = require('sequelize')
 
 class Controller{
     static async register(req, res, next){
@@ -142,6 +143,14 @@ class Controller{
 
     static async addMyBook(req, res, next){
         try {
+            const oldMyBook = await MyBook.findAll({
+                where: {
+                    [Op.and]: [{ UserId: req.user.id }, { code: req.body.code }]
+                }
+            })
+
+            if(oldMyBook.length != 0) throw {name: "DuplicateMyBook"}
+
             req.body.UserId = req.user.id
             const newMyBook = await MyBook.create(req.body)
 

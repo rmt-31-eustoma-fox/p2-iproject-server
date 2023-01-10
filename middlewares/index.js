@@ -59,6 +59,9 @@ const errHandler = (error, req, res, next) => {
     } else if (error.name === "DataNotFound") {
         code = 404
         message = "Book not found"
+    } else if (error.name === "DuplicateMyBook") {
+        code = 400
+        message = "You already have this e-book"
     }
 
     res.status(code).json({message: message})
