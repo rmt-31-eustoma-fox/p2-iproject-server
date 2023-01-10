@@ -164,6 +164,16 @@ class Controller{
             next(error)
         }
     }
+
+    static async getMyBookById(req, res, next){
+        try {
+            const mybook = await MyBook.findByPk(req.params.id, {attributes: {exclude: ['createdAt', 'updatedAt']}})
+
+            res.status(200).json(mybook)
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = Controller

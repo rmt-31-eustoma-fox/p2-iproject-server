@@ -12,5 +12,6 @@ router.use(auth)
 router.post("/mybooks", Controller.addMyBook)
 router.get("/mybooks", Controller.getMyBooks)
 router.patch("/mybooks/:id", authorize, Controller.updateReading)
+router.get("/mybooks/:id", authorize, Controller.getMyBookById)
 
 module.exports = router
