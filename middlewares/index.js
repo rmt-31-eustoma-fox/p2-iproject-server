@@ -11,7 +11,11 @@ const auth = async (req, res, next) => {
         const user = await User.findByPk(payload.id)
         if(!user) throw {name: "InvalidToken"}
 
-        req.user = {id: user.id}
+        req.user = {
+            id: user.id,
+            name: user.username,
+            email: user.email
+        }
 
         next()
     } catch (error) {
@@ -62,6 +66,9 @@ const errHandler = (error, req, res, next) => {
     } else if (error.name === "DuplicateMyBook") {
         code = 400
         message = "You already have this e-book"
+    } else if (error.name === "RequiredDataQuery") {
+        code = 400
+        message = "Keyword is required"
     }
 
     res.status(code).json({message: message})

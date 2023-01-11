@@ -6,6 +6,8 @@ const axios = require('axios')
 const { Op } = require('sequelize')
 const {OAuth2Client, UserRefreshClient} = require('google-auth-library')
 const client = new OAuth2Client(process.env.CLIENT_ID);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+const midtransClient = require('midtrans-client');
 
 class Controller{
     static async register(req, res, next){
@@ -62,7 +64,8 @@ class Controller{
 
             res.status(200).json({
                 access_token: signToken({id: user.id}),
-                name: user.username
+                name: user.username,
+                email: user.email
             })
         } catch (error) {
             next(error)
@@ -112,7 +115,8 @@ class Controller{
 
             res.status(200).json({
                 access_token: signToken({id: user.id}),
-                name: user.username
+                name: user.username,
+                email: user.email
             })
         } catch (err) {
             next(err)
@@ -122,10 +126,14 @@ class Controller{
     static async getBooks(req, res, next){
         try {
             const { query } = req.query
+            if(!query) throw {name: "RequiredDataQuery"}
+
             const { data } = await axios({
                 method: "GET",
-                url: `https://www.googleapis.com/books/v1/volumes?q=${query}&orderBy=newest&filter=paid-ebooks&maxResults=40`
+                url: `https://www.googleapis.com/books/v1/volumes?q=${query}&filter=paid-ebooks&maxResults=40`
             })
+
+            if(data.totalItems == 0) throw {name: "DataNotFound"}
 
             res.status(200).json(data)
         } catch (error) {
@@ -152,6 +160,7 @@ class Controller{
 
     static async addMyBook(req, res, next){
         try {
+            // console.log(req.body, '<<<<<<<<< cek body req');
             const oldMyBook = await MyBook.findAll({
                 where: {
                     [Op.and]: [{ UserId: req.user.id }, { code: req.body.code }]
@@ -160,12 +169,35 @@ class Controller{
 
             if(oldMyBook.length != 0) throw {name: "DuplicateMyBook"}
 
-            req.body.UserId = req.user.id
-            const newMyBook = await MyBook.create(req.body)
+            let snap = new midtransClient.Snap({
+                // Set to true if you want Production Environment (accept real transaction).
+                isProduction : false,
+                serverKey : process.env.MIDTRANS_SK
+            });
+         
+            let parameter = {
+                "transaction_details": {
+                    "order_id": req.body.code,
+                    "gross_amount": req.body.price
+                },
+                "credit_card":{
+                    "secure" : true
+                },
+                "customer_details": {
+                    "first_name": req.user.name,
+                    "email": req.user.email,
+                }
+            };
+         
+            const midtrans = await snap.createTransaction(parameter)
+            // console.log(midtrans.token, '<<<< token ok');
 
-            const mybook = await MyBook.findByPk(newMyBook.id, {attributes: {exclude: ['createdAt', 'updatedAt']}})
+            // req.body.UserId = req.user.id
+            // const newMyBook = await MyBook.create(req.body)
 
-            res.status(201).json(mybook)
+            // const mybook = await MyBook.findByPk(newMyBook.id, {attributes: {exclude: ['createdAt', 'updatedAt']}})
+
+            res.status(201).json(midtrans.token)
         } catch (error) {
             next(error)
         }
