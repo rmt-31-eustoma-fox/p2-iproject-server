@@ -9,5 +9,6 @@ router.get('/', (req, res) => {
 router.get('/currencies', Controller.getAllCurrency)
 router.get('/forexNews', Controller.getForexNews)
 router.get('/forexValue', Controller.getForexPairValue)
+router.get('/forexExcRate', Controller.getExchangeRatio)
 
 module.exports = router

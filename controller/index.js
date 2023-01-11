@@ -5,14 +5,29 @@ class Controller {
   static async getAllCurrency(req, res, next) {
     // res.json({message : 'List all currency'})
     try {
-      const listCurrencies = await Currency.findAll({
-        order: [["name", "ASC"]],
-        attributes: {
-          exclude: ["updatedAt", "createdAt"],
+      const { data } = await axios({
+        method: "get",
+        url: "https://currency-conversion-and-exchange-rates.p.rapidapi.com/symbols",
+        headers: {
+          "X-RapidAPI-Key":
+            "456d727bc2msh92dec82df95eaa3p1c867djsn3d1b68e43101",
+          "X-RapidAPI-Host":
+            "currency-conversion-and-exchange-rates.p.rapidapi.com",
         },
       });
 
-      res.status(200).json(listCurrencies);
+      const { symbols } = data;
+      const reFactorData = [];
+
+      for (const code in symbols) {
+        const temp = {
+          symbol: code,
+          name: symbols[code],
+        };
+        reFactorData.push(temp);
+      }
+
+      res.status(200).json(reFactorData);
     } catch (error) {
       next(error);
     }
@@ -53,9 +68,9 @@ class Controller {
   }
   static async getForexPairValue(req, res, next) {
     try {
-        const { forexPair } = req.query;
-        // console.log(forexPair)
-        const { data } = await axios({
+      const { forexPair } = req.query;
+      // console.log(forexPair)
+      const { data } = await axios({
         method: "get",
         url: "https://twelve-data1.p.rapidapi.com/time_series",
         params: {
@@ -65,29 +80,62 @@ class Controller {
           format: "json",
         },
         headers: {
-          "X-RapidAPI-Key": "456d727bc2msh92dec82df95eaa3p1c867djsn3d1b68e43101",
+          "X-RapidAPI-Key":
+            "456d727bc2msh92dec82df95eaa3p1c867djsn3d1b68e43101",
           "X-RapidAPI-Host": "twelve-data1.p.rapidapi.com",
         },
       });
 
-      const {values} = data
+      const { values } = data;
 
-      const returnObj = values.map(el => {
+      const returnObj = values.map((el) => {
         const tempObj = {
-            time : el.datetime,
-            open : parseFloat(el.open),
-            high : parseFloat(el.high),
-            low  : parseFloat(el.low),
-            close: parseFloat(el.close)
-        }
-        return tempObj
-      })
+          time: el.datetime,
+          open: parseFloat(el.open),
+          high: parseFloat(el.high),
+          low: parseFloat(el.low),
+          close: parseFloat(el.close),
+        };
+        return tempObj;
+      });
 
-      returnObj.reverse()
+      returnObj.reverse();
 
-      res.status(200).json(returnObj)
+      res.status(200).json(returnObj);
     } catch (error) {
       next(error);
+    }
+  }
+  static async getExchangeRatio(req, res, next){
+    try {
+        const { forexPair } = req.query;
+        const symbol = forexPair.split('/')[0]
+        const {data} = await axios({
+            method: 'get',
+            url: 'https://anyapi.io/api/v1/exchange/rates',
+            params : {
+                base : symbol,
+                apiKey : 'bvild86tlhgq3entq0b4c8ajqbvdspk2gud8o5rng0dgo1qe5jt333o'
+            }
+        })
+
+        const updatedAt = (new Date(data.lastUpdate*1000))
+        const {base, rates} = data
+        const Pair = []
+        for(const quote in rates){
+            if(base !== quote){
+                const name = `${base}/${quote}`
+                const value = rates[quote]
+                Pair.push({name,value})
+            }
+            // Pair.push({`${base}/${quote}` : rates[quote]})
+        }
+
+        const finalReturn = {updatedAt, Pair}
+
+        res.status(200).json(finalReturn)
+    } catch (error) {
+        next(error)
     }
   }
 }
