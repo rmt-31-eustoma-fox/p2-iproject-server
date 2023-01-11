@@ -108,30 +108,30 @@ class Controller {
         code = 200;
       }
 
-      // const transporter = nodemailer.createTransport({
-      //   service: 'gmail',
-      //   auth: {
-      //     user: 'valfave02@gmail.com',
-      //     pass: '123456789?>',
-      //   },
-      // });
+      const transporter = nodemailer.createTransport({
+        service: 'hotmail',
+        auth: {
+          user: 'valFave@outlook.com',
+          pass: '1234567890?>',
+        },
+      });
 
       // console.log(user.email, '=================');
 
-      // const options = {
-      //   from: 'valfave02@gmail.com',
-      //   to: user.email,
-      //   subject: 'Signing in',
-      //   text: 'You just logged in',
-      // };
+      const options = {
+        from: 'valFave@outlook.com',
+        to: user.email,
+        subject: 'Signing notification',
+        text: 'Thank you for signing in into our website <3',
+      };
 
-      // transporter.sendMail(options, function (err, info) {
-      //   if (err) {
-      //     console.log(err);
-      //     return;
-      //   }
-      //   console.log('Email is sent !');
-      // });
+      transporter.sendMail(options, function (err, info) {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        console.log('Email is sent !');
+      });
 
       // res.status(code).json({ message, access_token: encodeToken({ id: user.id }), email: user.email });
       res.status(code).json({ access_token: signToken({ id: user.id }) });
