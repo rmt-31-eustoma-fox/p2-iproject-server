@@ -2,8 +2,63 @@ const {User, Profile, Deck, DeckCard} =require('../models')
 const {comparePassword} = require('../helpers/bcryptjs')
 const {encodeToken} = require('../helpers/jwt')
 const { default: axios } = require('axios')
+const {OAuth2Client} = require('google-auth-library');
+const CLIENT_ID = process.env.CLIENT_ID
+const client = new OAuth2Client(CLIENT_ID);
+const nodemailer = require('nodemailer')
 
 class Controller {
+    static mailer (sendto){
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: "dicapricornus17@gmail.com",
+              pass: "ylmdmaszkjrtfdoa"
+            },
+          });
+          
+          let mailOptions = {
+            from: 'dicapricornus@gmail.com',
+            to: sendto,
+            subject: `Register successfully`,
+            html: `You're successfully register in our site`,
+          };
+          
+          transporter.sendMail(mailOptions, (err, info) => {
+            if (err) {
+              console.log(err, "<<<<<<<")
+            } else {
+              console.log(info, "Berhasil kirim email <<<<<<<")
+            }
+          });
+    }
+
+    static async google (req, res, next) {
+        try {
+            const {access_token_google} = req.headers
+            let access_token
+            const ticket = await client.verifyIdToken({
+            idToken: access_token_google,
+            audience: CLIENT_ID
+            });
+            const {name, email} = ticket.getPayload();
+            const [user, create] = await User.findOrCreate({
+                where: {email}, defaults: {
+                    username: name, password: String(Math.random()), email
+                }
+            })
+            if (user){
+                Controller.mailer(user.email)
+                access_token = encodeToken({id: user.id})
+                console.log(user.id, "<<<<<USERID")
+                await Profile.create({UserId: user.id})
+                res.status(200).json({statusCode: 200, access_token})
+            } else {
+                access_token = encodeToken({id: create.id})
+                res.status(201).json({statusCode: 201, access_token})
+            }
+        } catch (error) {next(error)}}
+
     static async register (req, res, next) {
         try {
             const {email, password, username} = req.body
@@ -12,6 +67,7 @@ class Controller {
             user.id = users.id
             user.email = users.email
             user.username = users.username
+            Controller.mailer(users.email)
             await Profile.create({UserId: user.id})
             res.status(201).json({id: user.id, email: user.email, username: user.username})
         } catch (error) {next(error)}}
@@ -58,7 +114,10 @@ class Controller {
         try {
             const {name} = req.body
             const {id} = req.user
-            await Deck.create({ProfileId: id, name})
+            let profileId
+            const user = await User.findByPk(id, {include: {model: Profile}})
+            profileId = user.Profile.id
+            await Deck.create({ProfileId: profileId, name})
             res.status(201).json({message: "Success create deck"})
         } catch (error) {next(error)}}
 
@@ -85,7 +144,11 @@ class Controller {
 
     static async getMyDecks (req, res, next){
         try {
-            const myDecks = await Deck.findAll({where: {ProfileId: req.user.id}})
+            const {id} = req.user
+            let profileId
+            const user = await User.findByPk(id, {include: {model: Profile}})
+            profileId = user.Profile.id
+            const myDecks = await Deck.findAll({where: {ProfileId: profileId}})
             res.status(200).json(myDecks)
         } catch (error) {next(error)}}
 
@@ -112,8 +175,7 @@ class Controller {
                 params: {id},
             })
             res.status(200).json({name: card.data.data[0].name, desc: card.data.data[0].desc, image_url: card.data.data[0].card_images[0].image_url})
-        } catch (error) {console.log(error)}
-    }
+        } catch (error) {console.log(error)}}
 
     static async deleteCard (req, res, next){
         try {
@@ -121,6 +183,11 @@ class Controller {
             await DeckCard.destroy({where: {id: CardId}})
             res.status(200).json({message: "Delete success"})
         } catch (error) {next(error)}}
+
+    static async uploadImage (req, res, next){
+        try {
+            await Profile.update({where: {UserId: req.user.id}})
+        } catch (error) {console.log(error)}}
 }
 
 module.exports = {Controller}
