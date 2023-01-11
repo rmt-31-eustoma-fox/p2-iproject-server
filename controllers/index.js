@@ -161,7 +161,7 @@ class Controller {
   static async orderHistory(req, res, next) {
     try {
       const orders = await OrderHistory.findAll({
-        order: [["id", "ASC"]],
+        order: [["id", "DESC"]],
         include: [User, Product],
         where: {
           UserId: req.user.id,
@@ -182,6 +182,8 @@ class Controller {
           UserId: req.user.id,
         },
       });
+
+      if (products.length == 0) throw { name: "Your Cart is Empty" };
 
       for (let i = 0; i < products.length; i++) {
         await OrderHistory.create({

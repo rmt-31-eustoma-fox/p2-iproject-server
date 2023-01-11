@@ -16,6 +16,9 @@ const errorHandler = (err, req, res, next) => {
   } else if (err.name === "Product with that id is not found") {
     code = 404;
     message = "Product with that id is not found";
+  } else if (err.name === "Your Cart is Empty") {
+    code = 400;
+    message = "Your Cart is Empty";
   }
 
   res.status(code).json({ message });
