@@ -18,7 +18,6 @@ const authentication = async (req, res, next) => {
 
     req.user = {
       id: findUser.id,
-
     };
     next();
   } catch (error) {

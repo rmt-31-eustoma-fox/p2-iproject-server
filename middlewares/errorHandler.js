@@ -20,9 +20,9 @@ const errorHandler = (error, req, res, next) => {
   } else if (error.name === "forbidden") {
     code = 403;
     message = "Forbidden";
-  } else if (error.name === "please login with customer account!"){
-    code = 401
-    message = "please login with customer account!"
+  } else if (error.name === "Already subscribed!"){
+    code = 400
+    message = "Already subscribed!"
   }
   res.status(code).json({ message });
 };

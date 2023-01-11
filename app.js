@@ -21,11 +21,18 @@ app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+
 io.on('connection', (socket) => {
     console.log(`user ${socket.id} is connected.`)
 
+    socket.on('join', (data) => {
+    // console.log("ke trigger")
+    socket.join(data.room)
+    io.in(data.room).emit('chat message', data)
+  })
+
     socket.on('message', data => {
-        socket.broadcast.emit('message:received', data)
+        socket.broadcast.emit('message: received', data)
     })
 
     socket.on('disconnect', () => {
