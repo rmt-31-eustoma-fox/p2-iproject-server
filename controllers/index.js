@@ -97,7 +97,7 @@ class Controller {
                         {model: Image, attributes: ['imageUrl']}
                     ]
                 })
-                res.status(200).json({accomodations})
+                res.status(200).json(accomodations)
             }
         } catch (error) {
             next(error)
