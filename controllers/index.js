@@ -4,6 +4,8 @@ const { comparePw, signToken } = require('../helpers')
 const mailjet = new Mailjet.apiConnect(process.env.API_KEY_MAILJET, process.env.SECRET_KEY_MAILJET)
 const axios = require('axios')
 const { Op } = require('sequelize')
+const {OAuth2Client, UserRefreshClient} = require('google-auth-library')
+const client = new OAuth2Client(process.env.CLIENT_ID);
 
 class Controller{
     static async register(req, res, next){
@@ -26,17 +28,18 @@ class Controller{
                     "Name": username
                     }
                 ],
-                "Subject": "Hai, good readers.",
+                "Subject": "Hai, good reader.",
                 "TextPart": "My first Mailjet email",
-                "HTMLPart": `<h3>Dear ${username}, welcome to GarageReading</a>!</h3><br />Hope you get new insight`,
+                "HTMLPart": `<h3>Dear ${username}, welcome to Reading Shed</a>!</h3><br />Hope you get new insight`,
                 "CustomID": `user${newUser.id}`
                 }
             ]
             })
            
             res.status(201).json({
+                access_token: signToken({id: newUser.id}),
                 id: newUser.id,
-                username: newUser.username,
+                name: newUser.username,
                 email: newUser.email,
                 notification: request.response.data.Messages[0]
             })
@@ -69,7 +72,7 @@ class Controller{
     static async loginByGoogle(req, res, next){
         try {
             const token = req.headers["google-oauth-token"]
-           
+
             const ticket = await client.verifyIdToken({
                 idToken: token,
                 audience: process.env.CLIENT_ID
@@ -99,9 +102,9 @@ class Controller{
                         "Name": name
                         }
                     ],
-                    "Subject": "Hai, good readers.",
+                    "Subject": "Hai, good reader.",
                     "TextPart": "My first Mailjet email",
-                    "HTMLPart": `<h3>Dear ${name}, welcome to GarageReading</a>!</h3><br />Hope you get new insight`,
+                    "HTMLPart": `<h3>Dear ${name}, welcome to Reading Shed</a>!</h3><br />Hope you get new insight`,
                     "CustomID": `user${user.id}`
                     }
                 ]
