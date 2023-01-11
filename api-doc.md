@@ -11,6 +11,7 @@ List of available endpoints:
 - `POST /favorite/:agentUuid`
 - `GET /favorite`
 - `DELETE /favorite/:id`
+- `GET /leaderboard`
 
 &nbsp;
 
@@ -381,6 +382,27 @@ _Response (403 - Bad Request)_
   "message": "Forbidden"
 }
 ```
+
+## 8. GET /leaderboard
+
+_Response (200 - OK)_
+
+```json
+[
+    {
+        "puuid": "uuid",
+        "gameName": "string",
+        "tagLine": "string",
+        "leaderboardRank": "integer",
+        "rankedRating": "integer",
+        "numberOfWins": "integer",
+        "competitiveTier": "integer"
+    },
+    ...
+]
+```
+
+&nbsp;
 
 &nbsp;
 
