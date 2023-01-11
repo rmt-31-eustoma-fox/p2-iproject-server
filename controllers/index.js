@@ -142,6 +142,8 @@ class Controller {
   static async deleteCart(req, res, next) {
     try {
       const { id } = req.params;
+      const selectedCart = await Cart.findByPk(id);
+      if (!selectedCart) throw { name: "Product with that id is not found" };
 
       await Cart.destroy({
         where: {

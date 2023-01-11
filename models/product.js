@@ -17,13 +17,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "CategoryId",
       });
 
-      Product.belongsToMany(models.User, {
-        through: models.Cart,
-      });
+      Product.hasMany(models.Cart);
 
-      Product.belongsToMany(models.User, {
-        through: models.OrderHistory,
-      });
+      Product.hasMany(models.OrderHistory);
     }
   }
   Product.init(

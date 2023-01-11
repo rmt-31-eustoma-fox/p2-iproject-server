@@ -13,6 +13,9 @@ const errorHandler = (err, req, res, next) => {
   } else if (err.name === "invalid_token" || err.name === "JsonWebTokenError") {
     code = 401;
     message = "Invalid Token";
+  } else if (err.name === "Product with that id is not found") {
+    code = 404;
+    message = "Product with that id is not found";
   }
 
   res.status(code).json({ message });
