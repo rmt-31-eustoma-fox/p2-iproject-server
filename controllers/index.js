@@ -5,12 +5,14 @@ const { User, City, Accomodation, Image, Transaction } = require('../models')
 const {OAuth2Client} = require('google-auth-library')
 const client = new OAuth2Client(process.env.CLIENT_ID)
 const midtransClient = require('midtrans-client')
+const send = require('../helpers/nodemailer')
 
 class Controller {
     static async register (req, res, next) {
         const {name, email, password, dateOfBirth, phoneNumber, address} = req.body
         try {
             const newUser = await User.create({name, email, password, dateOfBirth, phoneNumber, address})
+            send(newUser.email)
             res.status(201).json({ message : `Success register, Welcome ${newUser.name}`, name: newUser.name })
         } catch (error) {
             next(error)
@@ -31,7 +33,7 @@ class Controller {
                     throw {name: 'Invalid'}
                 } else {
                     const access_token = signToken({id: user.id})
-                    res.status(200).json({access_token, username: user.name})
+                    res.status(200).json({access_token, name: user.name})
                 }
             }
         } catch (error) {
@@ -66,7 +68,6 @@ class Controller {
           };
    
           const access_token = signToken(payload);
-   
           res.status(200).json({ access_token, name: user.name});
         } catch (error) {
           next(error);
@@ -96,7 +97,7 @@ class Controller {
                         {model: Image, attributes: ['imageUrl']}
                     ]
                 })
-                res.status(200).json(accomodations)
+                res.status(200).json({accomodations})
             }
         } catch (error) {
             next(error)
