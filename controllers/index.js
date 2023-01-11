@@ -3,6 +3,10 @@ const { signToken } = require('../helpers/jwt');
 const { comparePassword } = require('../helpers/bcrypt');
 const { User, Favorite } = require('../models');
 
+const { OAuth2Client } = require('google-auth-library');
+const { CLIENT_ID } = process.env;
+const client = new OAuth2Client(CLIENT_ID);
+
 class Controller {
   static async agents(req, res, next) {
     try {
@@ -23,6 +27,8 @@ class Controller {
             abilities: el.abilities,
           };
         });
+
+      // console.log('masuk agent========');
 
       res.status(200).json(mappedData);
     } catch (error) {
@@ -87,7 +93,6 @@ class Controller {
         defaults: {
           email,
           password: 'ini_password',
-          role: 'customer',
         },
       });
 
@@ -114,12 +119,21 @@ class Controller {
     try {
       const { agentUuid } = req.params;
 
+      // a
+      const find = await Favorite.findOne({ where: { UserId: req.user.id, uuid: agentUuid } });
+      // e
+
+      if (find) {
+        res.status(401).json({ message: 'Can not add agent twice' });
+        return;
+      }
+
       const { data } = await axios({
         method: 'get',
         url: `https://valorant-api.com/v1/agents/${agentUuid}`,
       });
 
-      console.log(data.data.displayName);
+      // console.log(data.data.displayName);
 
       await Favorite.create({
         UserId: req.user.id,
