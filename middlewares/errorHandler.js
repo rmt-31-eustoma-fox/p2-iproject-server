@@ -20,6 +20,9 @@ const errorHandler = (error, req, res, next) => {
     } else if (error.name == 'InvalidTransaction') {
         code = 404
         message = 'Transaction not found'
+    } else if (error.name == 'already_paid') {
+        code = 400
+        message = 'This transaction is already paid'
     }
 
     res.status(code).json({message})

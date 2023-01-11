@@ -1,7 +1,10 @@
-const { Op } = require('sequelize')
+const { Op, where } = require('sequelize')
 const { compareHash } = require('../helpers/bcrypt')
 const { signToken } = require('../helpers/jwt')
 const { User, City, Accomodation, Image, Transaction } = require('../models')
+const {OAuth2Client} = require('google-auth-library')
+const client = new OAuth2Client(process.env.CLIENT_ID)
+const midtransClient = require('midtrans-client')
 
 class Controller {
     static async register (req, res, next) {
@@ -32,8 +35,41 @@ class Controller {
                 }
             }
         } catch (error) {
-            console.log(error);
             next(error)
+        }
+    }
+
+    static async googleSign(req, res, next) {
+        try {
+          const googleToken = req.headers["google-oauth-token"];
+          const ticket = await client.verifyIdToken({
+            idToken: googleToken,
+            audience: process.env.CLIENT_ID,
+          });
+   
+          const { email, name } = ticket.getPayload();
+          const [user, created] = await User.findOrCreate({
+            where: { email },
+            defaults: {
+              name,
+              email,
+              password: "google",
+              dateOfBirth: "-",
+              phoneNumber: "-",
+              address: "-"
+            },
+            hooks: false,
+          });
+   
+          const payload = {
+            id: user.id,
+          };
+   
+          const access_token = signToken(payload);
+   
+          res.status(200).json({ access_token, name: user.name});
+        } catch (error) {
+          next(error);
         }
     }
 
@@ -77,6 +113,56 @@ class Controller {
                 throw {name: 'InvalidAccomodationId'}
             } else {
                 res.status(200).json(accomodation)
+            }
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async makePayment (req, res, next) {
+        const {id} = req.params
+        try {
+            const user = await User.findByPk(req.user.id)
+            const targetAccomodation = await Accomodation.findByPk(id)
+            if (!targetAccomodation) {
+                throw {name: 'InvalidAccomodationId'}
+            } else {
+                const payment = await Transaction.findOne({
+                    where: {
+                        [Op.and]: [
+                            {UserId: req.user.id},
+                            {AccomodationId: id}
+                        ]
+                    }
+                })
+                if (!payment) {
+                    throw {name: 'InvalidTransaction'}
+                } else {
+                    if (payment.isPaid) {
+                        throw {name: 'already_paid'}
+                    } else {
+                        let snap = new midtransClient.Snap({
+                            isProduction : false,
+                            serverKey : process.env.MIDTRANS_SERVER_KEY
+                        });
+                        let parameter = {
+                            "transaction_details": {
+                                "order_id": "TRANSACTIONS_" + Math.floor(100000 + Math.random() * 900000),
+                                "gross_amount": payment.price
+                            },
+                            "credit_card":{
+                                "secure" : true
+                            },
+                            "customer_details": {
+                                "name": user.name,
+                                "email": user.email,
+                                "phone": user.phoneNumber
+                            }
+                        };
+                        const midtransToken = await snap.createTransaction(parameter)
+                        res.status(201).json(midtransToken)
+                    }
+                }
             }
         } catch (error) {
             next(error)
