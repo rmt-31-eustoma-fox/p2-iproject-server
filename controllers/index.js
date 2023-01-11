@@ -32,11 +32,24 @@ class Controller {
 
     static async getCard (req, res, next){
         try {
-            const {id, name, type, atk, def, level, race, attributes, banlist, sort, frameType, desc, fname} = req.query
+            const {name, type, atk, def, level, race, attribute, banlist, sort, frameType, desc, fname} = req.query
+            let yugiParams
+            if (name) yugiParams = {name}
+            if (type) yugiParams = {type}
+            if (atk) yugiParams = {atk}
+            if (def) yugiParams = {def}
+            if (level) yugiParams = {level}
+            if (race) yugiParams = {race}
+            if (attribute) yugiParams = {attribute}
+            if (frameType) yugiParams = {frameType}
+            if (banlist) yugiParams = {banlist}
+            if (sort) yugiParams = {sort}
+            if (desc) yugiParams = {desc}
+            if (fname) yugiParams = {fname}
             const card = await axios({
                 method: "get",
                 url: "https://db.ygoprodeck.com/api/v7/cardinfo.php",
-                params: {id, name, type, atk, def, level, race, attributes, banlist, sort, frameType, desc, fname}
+                params: yugiParams,
             })
             res.status(200).json(card.data.data)
         } catch (error) {next(error)}}
@@ -63,20 +76,51 @@ class Controller {
             })
             data = find.data.data
             const check = await DeckCard.findAll({where: {DeckId: deckid, CardId: data[0].id}})
-            if (check.length > 2) throw {name: "is invalid", message: "Cannot add more than 3"}
+            if (check.length >= 3) throw {name: "is invalid", message: "Cannot have more than 3"}
             const checkAll = await DeckCard.findAll()
-            if (checkAll.length > 80) throw {name: "is invalid", message: "Cannot have more than 60 card"}
-            await DeckCard.create({DeckId: deckid, CardId: data[0].id, name: data[0].name, type: data[0].type, desc: data[0].desc, image_url: data[0].image_url, image_url_small: data[0].image_url_small, image_url_cropped: data[0].image_url_cropped})
+            if (checkAll.length >= 81) throw {name: "is invalid", message: "Cannot have more than 60 card"}
+            await DeckCard.create({DeckId: deckid, CardId: data[0].id, name: data[0].name, type: data[0].type, desc: data[0].desc, image_url: data[0].card_images[0].image_url, image_url_small: data[0].card_images[0].image_url_small, image_url_cropped: data[0].card_images[0].image_url_cropped})
             res.status(201).json({message: "Success Adding Card"})
         } catch (error) {next(error)}}
 
-    static async getMyDeckCards(req, res, next){
+    static async getMyDecks (req, res, next){
+        try {
+            const myDecks = await Deck.findAll({where: {ProfileId: req.user.id}})
+            res.status(200).json(myDecks)
+        } catch (error) {next(error)}}
+
+    static async deleteDeck (req, res, next){
         try {
             const {deckid} = req.params
-            const deck = await DeckCard.findAll({where: {DeckId: deckid}})
-            res.status(200).json(deck)
-        } catch (error) {next(error)}
+            await Deck.destroy({where: {id: deckid}})
+            res.status(200).json({message: 'Success delete deck'})
+        } catch (error) {next(error)}}
+
+    static async theDeck (req, res, next){
+        try {
+            const {deckid} = req.params
+            const deck = await Deck.findByPk(deckid, {include: ['DeckCards']})
+            res.status(200).json({deck})
+        } catch (error) {next(error)}}
+
+    static async selectCard (req, res, next){
+        try {
+            const {id} = req.query
+            const card = await axios({
+                method: "get",
+                url: "https://db.ygoprodeck.com/api/v7/cardinfo.php",
+                params: {id},
+            })
+            res.status(200).json({name: card.data.data[0].name, desc: card.data.data[0].desc, image_url: card.data.data[0].card_images[0].image_url})
+        } catch (error) {console.log(error)}
     }
+
+    static async deleteCard (req, res, next){
+        try {
+            const {CardId} = req.body
+            await DeckCard.destroy({where: {id: CardId}})
+            res.status(200).json({message: "Delete success"})
+        } catch (error) {next(error)}}
 }
 
 module.exports = {Controller}

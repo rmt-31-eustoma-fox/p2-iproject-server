@@ -8,7 +8,12 @@ router.post('/login', Controller.login)
 router.use(authenthication)
 router.get('/cards', Controller.getCard)
 router.post('/adddeck', Controller.createDeck)
+router.get('/mydecks', Controller.getMyDecks)
 router.post('/decks/:deckid', Controller.editsCards)
-router.get('/decks/:deckid', Controller.getMyDeckCards)
+router.get('/decks/:deckid', Controller.theDeck)
+router.delete('/decks/:deckid', Controller.deleteDeck)
+router.get('/selectcard', Controller.selectCard)
+router.delete('/deckscard/:deckid', Controller.deleteCard)
+
 
 module.exports = router
