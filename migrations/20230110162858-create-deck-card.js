@@ -27,7 +27,11 @@ module.exports = {
       image_url_cropped: {
         type: Sequelize.TEXT
       },
-      ProfileId: {
+      CardId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      DeckId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {model: "Decks", key: 'id'},

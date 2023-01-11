@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     image_url: DataTypes.TEXT,
     image_url_small: DataTypes.TEXT,
     image_url_cropped: DataTypes.TEXT,
+    CardId: DataTypes.INTEGER,
     DeckId: {
       type: DataTypes.INTEGER,
       allowNull: false,

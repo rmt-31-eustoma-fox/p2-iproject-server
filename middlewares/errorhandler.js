@@ -5,6 +5,7 @@ const errorHandler = (err, req, res, next) => {
         res.status(400).json({message})
     }
     else if (err.name == "is empty") res.status(400).json({message: err.message})
+    else if (err.name == "is invalid") res.status(400).json({message: err.message})
     else if (err.name == "JsonWebTokenError") res.status(400).json({message: "Invalid Token"})
     else if (err.name == "SequelizeDatabaseError") res.status(400).json({message: 'Category is empty or image url is too long'})
     else if (err.name == "SequelizeUniqueConstraintError") res.status(400).json({message: err.message})
