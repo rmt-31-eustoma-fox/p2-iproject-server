@@ -8,6 +8,8 @@ const {OAuth2Client, UserRefreshClient} = require('google-auth-library')
 const client = new OAuth2Client(process.env.CLIENT_ID);
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const midtransClient = require('midtrans-client');
+const NewsAPI = require('newsapi');
+const newsapi = new NewsAPI(process.env.NEWSAPI_KEY);
 
 class Controller{
     static async register(req, res, next){
@@ -160,7 +162,6 @@ class Controller{
 
     static async addMyBook(req, res, next){
         try {
-            // console.log(req.body, '<<<<<<<<< cek body req');
             const oldMyBook = await MyBook.findAll({
                 where: {
                     [Op.and]: [{ UserId: req.user.id }, { code: req.body.code }]
@@ -192,12 +193,12 @@ class Controller{
             const midtrans = await snap.createTransaction(parameter)
             // console.log(midtrans.token, '<<<< token ok');
 
-            // req.body.UserId = req.user.id
-            // const newMyBook = await MyBook.create(req.body)
+            req.body.UserId = req.user.id
+            const newMyBook = await MyBook.create(req.body)
 
-            // const mybook = await MyBook.findByPk(newMyBook.id, {attributes: {exclude: ['createdAt', 'updatedAt']}})
+            const mybook = await MyBook.findByPk(newMyBook.id, {attributes: {exclude: ['createdAt', 'updatedAt']}})
 
-            res.status(201).json(midtrans.token)
+            res.status(201).json(mybook)
         } catch (error) {
             next(error)
         }
@@ -207,7 +208,7 @@ class Controller{
         try {
             const mybooks = await MyBook.findAll({
                 where: {UserId: req.user.id},
-                attributes: {exclude: ['createdAt', 'updatedAt']}
+                order: [['id', 'asc']]
             })
 
             res.status(200).json(mybooks)
@@ -231,6 +232,20 @@ class Controller{
             const mybook = await MyBook.findByPk(req.params.id, {attributes: {exclude: ['createdAt', 'updatedAt']}})
 
             res.status(200).json(mybook)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async getNews(req, res, next){
+        try {
+            const news = await newsapi.v2.topHeadlines({
+                q:'science',
+                category: 'science',
+                language: 'en',
+            })
+
+            res.status(200).json(news)
         } catch (error) {
             next(error)
         }

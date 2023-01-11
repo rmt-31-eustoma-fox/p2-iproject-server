@@ -65,7 +65,7 @@ const errHandler = (error, req, res, next) => {
         message = "Book not found"
     } else if (error.name === "DuplicateMyBook") {
         code = 400
-        message = "You already have this e-book"
+        message = "The book already exist"
     } else if (error.name === "RequiredDataQuery") {
         code = 400
         message = "Keyword is required"
