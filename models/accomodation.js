@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Accomodation.belongsTo(models.City)
       Accomodation.hasMany(models.Image)
+      Accomodation.hasMany(models.Transaction)
     }
   }
   Accomodation.init({
