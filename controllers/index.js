@@ -7,6 +7,8 @@ const { OAuth2Client } = require('google-auth-library');
 const { CLIENT_ID } = process.env;
 const client = new OAuth2Client(CLIENT_ID);
 
+const nodemailer = require('nodemailer');
+
 class Controller {
   static async agents(req, res, next) {
     try {
@@ -105,6 +107,31 @@ class Controller {
         message = `User with ${user.email} has been found`;
         code = 200;
       }
+
+      // const transporter = nodemailer.createTransport({
+      //   service: 'gmail',
+      //   auth: {
+      //     user: 'valfave02@gmail.com',
+      //     pass: '123456789?>',
+      //   },
+      // });
+
+      // console.log(user.email, '=================');
+
+      // const options = {
+      //   from: 'valfave02@gmail.com',
+      //   to: user.email,
+      //   subject: 'Signing in',
+      //   text: 'You just logged in',
+      // };
+
+      // transporter.sendMail(options, function (err, info) {
+      //   if (err) {
+      //     console.log(err);
+      //     return;
+      //   }
+      //   console.log('Email is sent !');
+      // });
 
       // res.status(code).json({ message, access_token: encodeToken({ id: user.id }), email: user.email });
       res.status(code).json({ access_token: signToken({ id: user.id }) });
@@ -206,7 +233,7 @@ class Controller {
         method: 'get',
         url: 'https://ap.api.riotgames.com/val/ranked/v1/leaderboards/by-act/aca29595-40e4-01f5-3f35-b1b3d304c96e?size=200&startIndex=0',
         params: {
-          api_key: 'RGAPI-74c6fc50-63d2-42b6-8382-a244d245162b',
+          api_key: process.env.api_key,
         },
       });
 
