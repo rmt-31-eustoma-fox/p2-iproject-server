@@ -199,6 +199,24 @@ class Controller {
       next(error);
     }
   }
+
+  static async leaderboard(req, res, next) {
+    try {
+      const { data } = await axios({
+        method: 'get',
+        url: 'https://ap.api.riotgames.com/val/ranked/v1/leaderboards/by-act/aca29595-40e4-01f5-3f35-b1b3d304c96e?size=200&startIndex=0',
+        params: {
+          api_key: 'RGAPI-74c6fc50-63d2-42b6-8382-a244d245162b',
+        },
+      });
+
+      const map = data.players;
+
+      res.status(200).json(map);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = Controller;
