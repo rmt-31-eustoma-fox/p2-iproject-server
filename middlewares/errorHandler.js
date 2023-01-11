@@ -11,7 +11,13 @@ const errorHandler = (err, req, res, next) => {
     } else if (err.name == "Invalid Login" || err.name == "JsonWebTokenError" || err.name == "Invalid Token") {
         code = 401
         message = err.message
-    }
+    } else if (err.name == "404 not found") {
+        code = 404
+        message = "Data not found"
+      } else if (err.name == "Forbidden") {
+        code = 403
+        message = "You are not authorized"
+      }
 
     res.status(code).json({ message })
 }
