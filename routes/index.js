@@ -16,5 +16,7 @@ router.post("/cart/:id", Controller.addCart);
 router.delete("/cart/:id", Controller.deleteCart);
 router.post("/pay", Controller.pay);
 router.get("/order-history", Controller.orderHistory);
+// router.post("/midtrans", Controller.midtrans);
+router.post("/bmi", Controller.bmi);
 
 module.exports = router;
