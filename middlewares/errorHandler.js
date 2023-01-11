@@ -19,6 +19,15 @@ const errorHandler = (err, req, res, next) => {
   } else if (err.name === "Your Cart is Empty") {
     code = 400;
     message = "Your Cart is Empty";
+  } else if (err.name === "Age cannot be smaller than 1 or bigger than 80") {
+    code = 400;
+    message = "Age cannot be smaller than 1 or bigger than 80";
+  } else if (err.name === "Weight cannot be smaller than 40 or bigger than 160") {
+    code = 400;
+    message = "Weight cannot be smaller than 40 or bigger than 160";
+  } else if (err.name === "Height cannot be smaller than 130 or bigger than 230") {
+    code = 400;
+    message = "Height cannot be smaller than 130 or bigger than 230";
   }
 
   res.status(code).json({ message });

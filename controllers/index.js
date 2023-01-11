@@ -4,6 +4,9 @@ const { generateToken } = require("../helpers/jwt");
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.CLIENT_ID);
 const { Op } = require("sequelize");
+const axios = require("axios");
+const midtransClient = require("midtrans-client");
+const BMI_KEY = process.env.BMI_KEY;
 
 class Controller {
   static async register(req, res, next) {
@@ -197,6 +200,27 @@ class Controller {
       });
 
       res.status(200).json({ message: `Payment Success` });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async bmi(req, res, next) {
+    try {
+      const { age, weight, height } = req.body;
+      if (age <= 0 || age > 80) throw { name: "Age cannot be smaller than 1 or bigger than 80" };
+      if (weight < 40 || weight > 160) throw { name: "Weight cannot be smaller than 40 or bigger than 160" };
+      if (height < 130 || height > 230) throw { name: "Height cannot be smaller than 130 or bigger than 230" };
+
+      const { data } = await axios({
+        url: `https://fitness-calculator.p.rapidapi.com/bmi?age=${age}&weight=${weight}&height=${height}`,
+        method: "get",
+        headers: {
+          "X-RapidAPI-Key": BMI_KEY,
+          "X-RapidAPI-Host": "fitness-calculator.p.rapidapi.com",
+        },
+      });
+      res.status(200).json(data);
     } catch (error) {
       next(error);
     }
