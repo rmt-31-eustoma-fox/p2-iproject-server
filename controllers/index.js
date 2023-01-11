@@ -124,7 +124,7 @@ class Controller {
       // e
 
       if (find) {
-        res.status(401).json({ message: 'Can not add agent twice' });
+        res.status(400).json({ message: 'Can not add agent twice' });
         return;
       }
 
