@@ -3,6 +3,10 @@ const errorHandler = (err, req, res, next) => {
     let code = 500
     let message = 'Internal Server Error'
 
+    if(err.response.status === 400){
+        code = 400
+        message = 'Bad Request'
+    }
 
     res.status(code).json({message})
 }
