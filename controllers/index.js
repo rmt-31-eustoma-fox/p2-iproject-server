@@ -99,6 +99,22 @@ class Controller {
     }
   }
 
+  static async detailProduct(req, res, next) {
+    try {
+      const { id } = req.params;
+      const selectedProduct = await Product.findByPk(id, {
+        include: [User, Category],
+      });
+      if (selectedProduct) {
+        res.status(200).json(selectedProduct);
+      } else {
+        throw { name: "Product with that id is not found" };
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async categories(req, res, next) {
     try {
       const categories = await Category.findAll({

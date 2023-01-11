@@ -7,6 +7,7 @@ router.post("/login", Controller.login);
 router.post("/google-sign-in", Controller.googleSignin);
 
 router.get("/products", Controller.products);
+router.get("/products/:id", Controller.detailProduct);
 router.get("/categories", Controller.categories);
 
 router.use(authentication);
