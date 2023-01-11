@@ -7,6 +7,7 @@ const { Op } = require("sequelize");
 const axios = require("axios");
 const midtransClient = require("midtrans-client");
 const BMI_KEY = process.env.BMI_KEY;
+const nodemailer = require("nodemailer");
 
 class Controller {
   static async register(req, res, next) {
@@ -237,8 +238,11 @@ class Controller {
         clientKey: process.env.YOUR_CLIENT_KEY,
       });
 
-      const user = await User.findByPk(id);
+      const user = await User.findByPk(id, {
+        include: [Cart],
+      });
 
+      console.log(user, "<<1");
       const parameter = {
         transaction_details: {
           order_id: "order-id-" + Math.round(new Date().getTime() / 1000) + "-" + Math.round(Math.random() * 100),
@@ -255,6 +259,30 @@ class Controller {
 
       const transaction = await snap.createTransaction(parameter);
       const transactionToken = transaction.token;
+
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "mraldrino@gmail.com",
+          pass: process.env.NODEMAILER_PASS,
+        },
+      });
+
+      const mailOptions = {
+        from: "mraldrino@gmail.com",
+        to: user.email,
+        // to: "aldr@yopmail.com",
+        subject: "Transaction Notification at de'Millie",
+        html: "<h2>You have made a purchase at de'Millie. Thank you!</h2>",
+      };
+
+      transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          return res.status(500).json({ message: "error sending mail" });
+        } else {
+          console.log("berhasil", info);
+        }
+      });
 
       res.status(200).json({ transactionToken });
     } catch (error) {
