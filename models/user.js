@@ -40,7 +40,8 @@ module.exports = (sequelize, DataTypes) => {
         notNull: {msg: "Password is required!"},
         notEmpty: {msg: "Password is required!"}
       }
-    }
+    },
+    isSubscribed: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'User',

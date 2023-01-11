@@ -100,7 +100,7 @@ class Controller {
           host: "smtp-mail.outlook.com",
           auth: {
             user: "warofbattleships@outlook.com",
-            pass: "battleships123!!",
+            pass: process.env["PASSWORD"],
           },
         });
 
@@ -144,6 +144,16 @@ class Controller {
         .json({ message: `User with id: ${req.user.id} now is a subscriber` });
     } catch (error) {
       next(error);
+    }
+  }
+
+  static async findUser(req, res, next){
+    try {
+      const findUser = await User.findByPk(req.user.id, {attributes: {exclude: "password"}})
+      console.log(findUser)
+      res.status(200).json({findUser})
+    } catch (error) {
+      next(error)
     }
   }
 

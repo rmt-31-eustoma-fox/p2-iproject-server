@@ -7,6 +7,7 @@ usersRouter.post("/login", Controller.login);
 usersRouter.post("/google/sign-in", Controller.googleLogin)
 
 usersRouter.use(authentication)
+usersRouter.get("/find", Controller.findUser)
 usersRouter.patch("/subscription", Controller.subscription)
 usersRouter.post("/generate-midtrans-token", Controller.midtrans)
 

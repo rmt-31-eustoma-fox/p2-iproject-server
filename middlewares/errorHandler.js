@@ -23,6 +23,9 @@ const errorHandler = (error, req, res, next) => {
   } else if (error.name === "Already subscribed!"){
     code = 400
     message = "Already subscribed!"
+  } else if(error.name === "MidtransError"){
+    code = 400
+    message = error.ApiResponse.error_messages[0]
   }
   res.status(code).json({ message });
 };
