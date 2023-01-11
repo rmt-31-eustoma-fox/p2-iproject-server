@@ -225,6 +225,42 @@ class Controller {
       next(error);
     }
   }
+
+  static async midtrans(req, res, next) {
+    try {
+      const { amount } = req.body;
+      const { id } = req.user;
+
+      const snap = new midtransClient.Snap({
+        isProduction: false,
+        serverKey: process.env.YOUR_SERVER_KEY,
+        clientKey: process.env.YOUR_CLIENT_KEY,
+      });
+
+      const user = await User.findByPk(id);
+
+      const parameter = {
+        transaction_details: {
+          order_id: "order-id-" + Math.round(new Date().getTime() / 1000) + "-" + Math.round(Math.random() * 100),
+          gross_amount: amount,
+        },
+
+        credit_card: {
+          secure: true,
+        },
+        customer_details: {
+          email: user.email,
+        },
+      };
+
+      const transaction = await snap.createTransaction(parameter);
+      const transactionToken = transaction.token;
+
+      res.status(200).json({ transactionToken });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = Controller;
