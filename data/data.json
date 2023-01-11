@@ -1,0 +1,93 @@
+{
+  "Users": [
+    {
+      "email": "admin@mail.com",
+      "password": "admin1"
+    }
+  ],
+  "Products": [
+    {
+      "name": "Lapis Original Square",
+      "description": "Lapis Original yang di buat dengan menggunakan bahan premium (Wijsman Butter) dan di proses secara higenis tanpa bahan pengawet.",
+      "price": 565000,
+      "imgUrl": "https://i.ibb.co/dbfDL4b/LAPIS-ORIGINAL-SQUARE.jpg",
+      "CategoryId": 1,
+      "UserId": 1
+    },
+    {
+      "name": "Lapis Original Half",
+      "description": "Lapis Original yang di buat dengan menggunakan bahan premium (Wijsman Butter) dan di proses secara higenis tanpa bahan pengawet.",
+      "price": 310000,
+      "imgUrl": "https://i.ibb.co/KGnwx4g/LAPIS-ORIGINAL-HALF.jpg",
+      "CategoryId": 1,
+      "UserId": 1
+    },
+    {
+      "name": "Lapis Original Quarter",
+      "description": "Lapis Original yang di buat dengan menggunakan bahan premium (Wijsman Butter) dan di proses secara higenis tanpa bahan pengawet.",
+      "price": 165000,
+      "imgUrl": "https://i.ibb.co/25NDK5j/LAPIS-ORIGINAL-QUARTER.jpg",
+      "CategoryId": 1,
+      "UserId": 1
+    },
+    {
+      "name": "Fruit Cake",
+      "description": "Fruit Cake yang di buat dengan menggunakan bahan premium dan di proses secara higenis tanpa bahan pengawet.",
+      "price": 560000,
+      "imgUrl": "https://i.ibb.co/zRQ5rw8/Fruit-cake.jpg",
+      "CategoryId": 2,
+      "UserId": 1
+    },
+    {
+      "name": "Blueberry Cake",
+      "description": "Blueberry Cake yang di buat dengan menggunakan bahan premium dan di proses secara higenis tanpa bahan pengawet.",
+      "price": 310000,
+      "imgUrl": "https://i.ibb.co/Vqr2GtF/Blueberry-cake.jpg",
+      "CategoryId": 2,
+      "UserId": 1
+    },
+    {
+      "name": "Mooncake Taiwan with Salted Egg Yolk",
+      "description": "Mooncake Taiwan yang di buat dengan menggunakan bahan premium dan di proses secara higenis tanpa bahan pengawet.",
+      "price": 35000,
+      "imgUrl": "https://i.ibb.co/25ssNtm/Mooncake-pandan-taiwan.jpg",
+      "CategoryId": 3,
+      "UserId": 1
+    },
+    {
+      "name": "Mooncake Pandan with Salted Egg Yolk",
+      "description": "Mooncake Pandan Egg yang di buat dengan menggunakan bahan premium dan di proses secara higenis tanpa bahan pengawet.",
+      "price": 30000,
+      "imgUrl": "https://i.ibb.co/Q6jNCpy/Mooncake-pandan.jpg",
+      "CategoryId": 3,
+      "UserId": 1
+    },
+    {
+      "name": "Mooncake Redbean with Salted Egg Yolk",
+      "description": "Mooncake Redbean Egg yang di buat dengan menggunakan bahan premium dan di proses secara higenis tanpa bahan pengawet.",
+      "price": 30000,
+      "imgUrl": "https://i.ibb.co/VM9Ykc8/Mooncake-redbean.jpg",
+      "CategoryId": 3,
+      "UserId": 1
+    },
+    {
+      "name": "Mooncake Redbean",
+      "description": "Mooncake Redbean yang di buat dengan menggunakan bahan premium dan di proses secara higenis tanpa bahan pengawet.",
+      "price": 25000,
+      "imgUrl": "https://i.ibb.co/51Z07TL/Mooncake-redbean-noegg.jpg",
+      "CategoryId": 3,
+      "UserId": 1
+    }
+  ],
+  "Categories": [
+    {
+      "name": "Signature Lapis Legit"
+    },
+    {
+      "name": "Other Cake"
+    },
+    {
+      "name": "Mooncake"
+    }
+  ]
+}
