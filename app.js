@@ -35,6 +35,10 @@ io.on('connection', (socket) => {
         socket.broadcast.emit('message: received', data)
     })
 
+    socket.on('message-dog', data => {
+        socket.broadcast.emit('message: received-dog', data)
+    })
+
     socket.on('disconnect', () => {
         console.log(`user ${socket.id} left.`)
     })

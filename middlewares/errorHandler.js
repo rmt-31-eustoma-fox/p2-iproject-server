@@ -20,7 +20,7 @@ const errorHandler = (error, req, res, next) => {
   } else if (error.name === "forbidden") {
     code = 403;
     message = "Forbidden";
-  } else if (error.name === "Already subscribed!"){
+  } else if (error.message === "Already subscribed!"){
     code = 400
     message = "Already subscribed!"
   } else if(error.name === "MidtransError"){

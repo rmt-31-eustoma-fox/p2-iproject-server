@@ -91,7 +91,7 @@ class Controller {
           username: name,
           email,
           password: "password",
-          role: "staff",
+          isSubscribed: "false",
         },
       });
 
@@ -107,9 +107,9 @@ class Controller {
         let info = await transporter.sendMail({
           from: "warofbattleships@outlook.com",
           to: email,
-          subject: "THANK YOU FOR JOINING OUR CREW",
-          text: "hello there! I hope you enjoy playing war of battleships",
-          html: "<h2>LET'S GO TO THE WAR!!!!! URRRAAAA</h2>",
+          subject: "Welcome to the DC Community Chat!",
+          text: `welcome to dc community chat`,
+          html: "<h2>WELCOME TO DC COMMUNITY CHAT</h2>",
         });
 
         console.log("Message sent: %s", info.messageId);
@@ -120,9 +120,10 @@ class Controller {
         const access_token = encodeToken({
           id: user.id,
         });
+        // console.log(user)
         res
           .status(200)
-          .json({ access_token, username: user.username, role: user.role });
+          .json({ access_token, username: user.username, role: user.role, isSubscribed: user.isSubscribed });
       }
     } catch (error) {
       next(error);
