@@ -1,4 +1,5 @@
 const axios = require('axios');
+require('dotenv').config();
 
 
 class Movie {
@@ -28,7 +29,7 @@ class Movie {
 
             // console.log(page);
             const {data} = await axios({
-                url : `https://api.themoviedb.org/3/trending/${mediaType}/${time}?api_key=ecdc3d3cff66c04c063d91343c8520f2&page=${page}`,
+                url : `https://api.themoviedb.org/3/trending/${mediaType}/${time}?api_key=${process.env.TMDB_API_KEY}&page=${page}`,
                 // headers : {
                 //     access_token: localStorage.getItem("access_token")
                 // }
@@ -45,7 +46,7 @@ class Movie {
             // console.log(movieId);
 
             const {data} = await axios({
-                url : `https://api.themoviedb.org/3/movie/${movieId}?api_key=ecdc3d3cff66c04c063d91343c8520f2`
+                url : `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.TMDB_API_KEY}`
             })
             // console.log(code);
             const qrcode = await axios({
@@ -58,7 +59,7 @@ class Movie {
                     "x-ratelimit-reset": 1672793920,
                     "x-ratelimit-limit": 300,
                     "x-credits-premium": 0,
-                    "x-happi-key": "44a1b6vXU9B5JInU2EXK9GZLqCON6z8B5QQEauhw6fx5gxmcW90fPkUo"
+                    "x-happi-key": process.env.HAPPY_API_KEY
                 },
                 params: {
                     data: data.homepage

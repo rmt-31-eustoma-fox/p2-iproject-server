@@ -1,4 +1,5 @@
 const { comparePassword } = require("../helpers/bcrypt")
+const sendMail = require("../helpers/email")
 const { encodeToken } = require("../helpers/jwt")
 const response = require("../helpers/response")
 const {User} = require("../models")
@@ -15,6 +16,7 @@ class AuthCustomer {
 
         try {
             const newUser = await User.create(data)
+            sendMail("muharifbudiman07@gmail.com",data.email,"success register", "please login to the app")
             return response(res, 201, "success register new customer", newUser)
         } catch (error) {
             next(error)

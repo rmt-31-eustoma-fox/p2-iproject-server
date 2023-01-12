@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const key = "rahasia"
+require('dotenv').config();
+const key = process.env.JWT_SECRET
 const encodeToken = (payload) => {
     return jwt.sign(payload, key)
 }

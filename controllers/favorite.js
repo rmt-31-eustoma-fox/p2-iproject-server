@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const { default: axios } = require("axios")
 const { Favorite } = require("../models")
 
@@ -45,7 +45,7 @@ class FavoriteController {
             for (let i = 0; i < favorite.length; i++) {
                 // console.log(favorite[i].externalId);
                 let favoriteList = await axios({
-                    url: `https://api.themoviedb.org/3/movie/${favorite[i].externalId}?api_key=ecdc3d3cff66c04c063d91343c8520f2`
+                    url: `https://api.themoviedb.org/3/movie/${favorite[i].externalId}?api_key=${process.env.TMDB_API_KEY}`
                 })
                 // console.log(favoriteList.data,"iniii isi favorite list");
                 favList.push(favoriteList.data)
@@ -58,13 +58,6 @@ class FavoriteController {
         }
     }
 
-    static async deleteFavoriteList(req, res, next) {
-        try {
-
-        } catch (error) {
-            next(error)
-        }
-    }
 }
 
 module.exports = FavoriteController
