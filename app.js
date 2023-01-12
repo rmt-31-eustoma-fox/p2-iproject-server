@@ -1,6 +1,7 @@
 if(process.env.NODE_ENV != 'production'){
   require("dotenv").config();
 }
+const port = process.env.PORT || 3000
 const cors = require("cors")
 const express = require('express');
 const http = require('http');
@@ -48,6 +49,6 @@ app.use(routes);
 
 app.use(errorHandler);
 
-server.listen(3000, () => {
-    console.log('Chat server is running on 3000')
-})
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+ })
