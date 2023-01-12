@@ -55,7 +55,7 @@ class Controller {
             defaults: {
               name,
               email,
-              password: "google",
+              password: "google123456",
               dateOfBirth: "-",
               phoneNumber: "-",
               address: "-"
