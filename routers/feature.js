@@ -1,18 +1,22 @@
-const Today = require('../controllers/today')
-const {authorDelete, authorPost} = require('../middlewares/authorization')
+const Today = require('../controllers/today');
+const authorization = require('../middlewares/authorization');
 
-const router = require('express').Router()
+const router = require('express').Router();
 
-router.post('/category', Today.addCategory)
-router.get('/category', Today.getCategory)
-router.delete('/category/:categoryid', Today.destroyCategory)
-router.get('/todo',Today.findTodo)
-router.post('/todo', Today.addTodo)
-router.delete('/todo/:todoid', authorDelete, Today.deleteTodo)
-router.post('/todo/:todoid/todolist',authorPost, Today.addTodoList )
-router.get('/todo/:todoid/todolist',Today.getTodolist)
-router.delete('/todo/:todoid/todolist/:listid',authorDelete, Today.destroylist)
+router.get('/', Today.findTodo);
+router.post('/todo', Today.addTodo);
+router.post('/todo/:todoid/todolist', authorization, Today.addTodoList);
+router.patch('/todo/:todoid/todolist/:listid', authorization, Today.updateStatus);
+router.delete('/todo/:todoid/todolist/:listid', authorization, Today.destroylist);
+router.delete('/todo/:todoid', authorization, Today.deleteTodo);
+router.post('/category', Today.addCategory);
+router.get('/category', Today.getCategory);
+router.delete('/category/:categoryid', Today.destroyCategory);
 
+router.get('/todo/:todoid', Today.getTodo);
 
+router.get('/todo/:todoid/todolist', Today.getTodolist);
 
-module.exports = router
+router.get('/geolocation', Today.geolocation);
+
+module.exports = router;

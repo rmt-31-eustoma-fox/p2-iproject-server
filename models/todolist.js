@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Todolist extends Model {
     /**
@@ -11,41 +9,53 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Todolist.belongsTo(models.Todo)
-      Todolist.belongsTo(models.User)
+      Todolist.belongsTo(models.Todo);
+      Todolist.belongsTo(models.User);
     }
   }
-  Todolist.init({
-    nameList: {
-      type:DataTypes.STRING,
-      allowNull:false,
-      validate:{
-        notNull:{
-          msg: 'namelist is require'
-        }
-      }
+  Todolist.init(
+    {
+      nameList: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: 'namelist is require',
+          },
+        },
+      },
+      TodoId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        validate: {
+          notNull: {
+            msg: 'Todo Id is require',
+          },
+        },
+      },
+      UserId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        validate: {
+          notNull: {
+            msg: 'User Id is require',
+          },
+        },
+      },
+      status: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        validate: {
+          notNull: {
+            msg: 'Status is require',
+          },
+        },
+      },
     },
-    TodoId: {
-      allowNull:false,
-      type: DataTypes.INTEGER,
-      validate:{
-        notNull:{
-        msg:'Todo Id is require'
-       }
-      }
-    },
-    UserId: {
-      allowNull:false,
-      type: DataTypes.INTEGER,
-      validate:{
-        notNull:{
-        msg:'User Id is require'
-      }
-      }
-    },
-  }, {
-    sequelize,
-    modelName: 'Todolist',
-  });
+    {
+      sequelize,
+      modelName: 'Todolist',
+    }
+  );
   return Todolist;
 };
