@@ -1,5 +1,4 @@
 const { default: axios } = require("axios");
-const { Currency } = require("../models");
 
 class Controller {
   static async getAllCurrency(req, res, next) {
@@ -9,8 +8,7 @@ class Controller {
         method: "get",
         url: "https://currency-conversion-and-exchange-rates.p.rapidapi.com/symbols",
         headers: {
-          "X-RapidAPI-Key":
-            "456d727bc2msh92dec82df95eaa3p1c867djsn3d1b68e43101",
+          "X-RapidAPI-Key": process.env.RAPID_API_KEY,
           "X-RapidAPI-Host":
             "currency-conversion-and-exchange-rates.p.rapidapi.com",
         },
@@ -43,7 +41,7 @@ class Controller {
           symbols: forexPair.replaceAll("/", ""),
           filter_entities: true,
           language: "en",
-          api_token: "rSlEQ1WtCN739GyIgaZ0YEqtVCCjCCx6VBXZhMPF",
+          api_token: process.env.STOCK_DATA_API_KEY,
         },
       });
 
@@ -80,8 +78,7 @@ class Controller {
           format: "json",
         },
         headers: {
-          "X-RapidAPI-Key":
-            "456d727bc2msh92dec82df95eaa3p1c867djsn3d1b68e43101",
+          "X-RapidAPI-Key": process.env.RAPID_API_KEY,
           "X-RapidAPI-Host": "twelve-data1.p.rapidapi.com",
         },
       });
@@ -115,7 +112,7 @@ class Controller {
             url: 'https://anyapi.io/api/v1/exchange/rates',
             params : {
                 base : symbol,
-                apiKey : 'bvild86tlhgq3entq0b4c8ajqbvdspk2gud8o5rng0dgo1qe5jt333o'
+                apiKey : process.env.ANY_API_IO_KEY
             }
         })
 
