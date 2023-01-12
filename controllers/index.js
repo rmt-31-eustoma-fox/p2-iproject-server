@@ -6,6 +6,8 @@ const {OAuth2Client} = require('google-auth-library');
 const CLIENT_ID = process.env.CLIENT_ID
 const client = new OAuth2Client(CLIENT_ID);
 const nodemailer = require('nodemailer')
+const relatedYugiohs = ['https://duelingnexus.com/', 'https://ygoprodeck.com/', 'https://twitter.com/yugioh?lang=en', 'https://www.duellinksmeta.com/', 'https://ycm.netlify.app/calc', 'https://play.google.com/store/apps/details?', 'id=com.zurdo.duelist', 'http://yugiohtracker.com/#/newCards', 'https://www.aygocm.co.uk/']
+
 
 class Controller {
     static mailer (sendto){
@@ -188,6 +190,37 @@ class Controller {
         try {
             await Profile.update({where: {UserId: req.user.id}})
         } catch (error) {console.log(error)}}
+
+    static async user (req, res, next){
+        try {
+            const user = await User.findByPk(req.user.id, {attribute: {exclude: ['password']}})
+            res.status(200).json(user)
+        } catch (error) {next(error)}}
+
+    static getWeb (req, res, next){
+        try {
+            let qrX = []
+            const qrApi = "c085a80LhNSV5nZD8BB7XrvfJnvaIMsIKZyw17bZdGbez7h44Vz9ELD2"
+            for (let i = 0; i < relatedYugiohs.length; i++){
+                console.log(relatedYugiohs[i])
+                axios({
+                    method: "get",
+                    url: `https://api.happi.dev/v1/qrcode`,
+                    headers: {
+                        "x-happi-key": qrApi
+                    },
+                    params: {
+                        data: relatedYugiohs[i]
+                    }
+                })
+                .then(qr => {
+                    qrX.push(qr.data)
+                    if (i+1 == relatedYugiohs.length){
+                        res.status(200).json({qrX})
+                    }
+                })
+            }
+        } catch (error) {next(error)}}
 }
 
 module.exports = {Controller}
