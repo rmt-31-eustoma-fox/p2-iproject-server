@@ -305,6 +305,25 @@ class Controller {
       next(error);
     }
   }
+
+  static async qrCode(req, res, next) {
+    try {
+      const { url } = req.body;
+      if (!url) throw { name: "Invalid url" };
+
+      const { data } = await axios({
+        url: `https://api.happi.dev/v1/qrcode?data=${url}&width=&dots=000000&bg=FFFFFF`,
+        method: "get",
+        headers: {
+          "x-happi-key": process.env.HAPPY_QR_KEY,
+          "Accept-Encoding": "application/json",
+        },
+      });
+      res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = Controller;
