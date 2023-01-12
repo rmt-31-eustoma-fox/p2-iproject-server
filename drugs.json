@@ -1,0 +1,57 @@
+[{
+        "name": "Sanmol Tablet",
+        "imgUrl": "https://mooara.id/wp-content/uploads/2020/09/httpsmooara.idwp-contentuploads202007httpsmooara.idwp-contentuploads202006Sanmol-e1593483434270-1.jpg",
+        "price": 2000,
+        "stock": 100,
+        "CategoryId": 2
+    },
+    {
+        "name": "Sanmol Syrup",
+        "imgUrl": "https://cdn.popmama.com/content-images/post/20211025/e872389029d6c4dd052dc63a1b882085jpg-f613959ded09c5193b66df625d8c1e28_800x420.jpg",
+        "price": 20000,
+        "stock": 100,
+        "CategoryId": 2
+    },
+    {
+        "name": "Sanmol Drops",
+        "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGeiAPJfkhzMXYSsCfdyKANdyep7RQi_Bpig&usqp=CAU",
+        "price": 25000,
+        "stock": 100,
+        "CategoryId": 2
+    },
+    {
+        "name": "Hufagripp Hijau",
+        "imgUrl": "https://images.tokopedia.net/img/cache/700/hDjmkQ/2021/9/30/052dfee6-86c2-4fc3-8ef1-8c1720853af8.jpg",
+        "price": 18000,
+        "stock": 100,
+        "CategoryId": 2
+    },
+    {
+        "name": "Hufagripp Merah",
+        "imgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSlLhsFZp60jThC-i1p4TqadL0eXYr_U9XjA&usqp=CAU",
+        "price": 18000,
+        "stock": 100,
+        "CategoryId": 2
+    },
+    {
+        "name": "Hufagripp Biru",
+        "imgUrl": "https://www.apotektaherfarma.com/wp-content/uploads/2020/06/Hufagrip-Turun-panas-60ml.jpg",
+        "price": 18000,
+        "stock": 100,
+        "CategoryId": 2
+    },
+    {
+        "name": "Pamol Tablet",
+        "imgUrl": "https://d2qjkwm11akmwu.cloudfront.net/products/333145_17-12-2019_15-11-17-1665800816.jpeg",
+        "price": 18000,
+        "stock": 100,
+        "CategoryId": 2
+    },
+    {
+        "name": "Pamol Syrup",
+        "imgUrl": "https://images.k24klik.com/product/large/apotek_online_k24klik_20201014013330359225_pamol-60-ml-2.jpg",
+        "price": 18000,
+        "stock": 100,
+        "CategoryId": 2
+    }
+]
