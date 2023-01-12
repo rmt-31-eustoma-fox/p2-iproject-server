@@ -1,5 +1,5 @@
 const { Category, Todo, User, Todolist } = require('../models');
-const { Op, json, where } = require('sequelize');
+const { Op } = require('sequelize');
 const CLIENT_ID = process.env['CLIENT_ID'];
 const axios = require('axios');
 const { jwtSign } = require('../helpers/jwt');

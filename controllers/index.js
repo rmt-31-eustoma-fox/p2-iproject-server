@@ -5,12 +5,12 @@ const nodemailer = require('nodemailer');
 class Index {
   static mailer(mailto) {
     var transporter = nodemailer.createTransport({
-      service: 'hotmail',
+      service: 'gmail',
       secure: false, // use SSL
       port: 25, // port for secure SMTP
       auth: {
-        user: 'mitrasurya7@outlook.com',
-        pass: 'Hebataja7@',
+        user: process.env.ENV_MAIL,
+        pass: process.env.ENV_PASS,
       },
       tls: {
         rejectUnauthorized: false,
@@ -18,7 +18,7 @@ class Index {
     });
 
     let mailOptions = {
-      from: 'mitrasurya7@outlook.com',
+      from: process.env.ENV_MAIL,
       to: mailto,
       subject: `Register successfully`,
       Text: `Thank for You join to our website`,
