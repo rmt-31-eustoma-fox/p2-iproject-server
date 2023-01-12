@@ -62,7 +62,7 @@ class Controller {
             },
             hooks: false,
           });
-   
+          send(created.email)
           const payload = {
             id: user.id,
           };
@@ -191,7 +191,7 @@ class Controller {
             if (!targetAccomodation) {
                 throw {name: 'InvalidAccomodationId'}
             } else {
-                await Transaction.create({UserId: req.user.id, AccomodationId: targetAccomodation.id, price: targetAccomodation.price, date: req.body.date})
+                await Transaction.create({UserId: req.user.id, AccomodationId: targetAccomodation.id, price: targetAccomodation.price, date: '30 Januari 2023'})
                 res.status(201).json({message: `${targetAccomodation.name} has been added to your transaction list`})
             }
         } catch (error) {
