@@ -170,16 +170,28 @@ class Controller{
 
             if(oldMyBook.length != 0) throw {name: "DuplicateMyBook"}
 
+            const currency = await axios({
+                method: 'GET',
+                url: 'https://currency-exchange.p.rapidapi.com/exchange',
+                params: {from: 'USD', to: 'IDR', q: req.body.price},
+                headers: {
+                  'X-RapidAPI-Key': 'cac728165dmsh6972b6acff9e936p10ac85jsn408d4f3bcf48',
+                  'X-RapidAPI-Host': 'currency-exchange.p.rapidapi.com'
+                }
+              })
+
+            //   console.log(currency.data, '<<<< cek price');
+
             let snap = new midtransClient.Snap({
                 // Set to true if you want Production Environment (accept real transaction).
                 isProduction : false,
                 serverKey : process.env.MIDTRANS_SK
             });
-         
+
             let parameter = {
                 "transaction_details": {
                     "order_id": req.body.code,
-                    "gross_amount": req.body.price
+                    "gross_amount": Math.round(currency.data)
                 },
                 "credit_card":{
                     "secure" : true
@@ -198,7 +210,7 @@ class Controller{
 
             const mybook = await MyBook.findByPk(newMyBook.id, {attributes: {exclude: ['createdAt', 'updatedAt']}})
 
-            res.status(201).json(mybook)
+            res.status(201).json(midtrans)
         } catch (error) {
             next(error)
         }
