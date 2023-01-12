@@ -170,15 +170,15 @@ class Controller{
 
             if(oldMyBook.length != 0) throw {name: "DuplicateMyBook"}
 
-            const currency = await axios({
-                method: 'GET',
-                url: 'https://currency-exchange.p.rapidapi.com/exchange',
-                params: {from: 'USD', to: 'IDR', q: req.body.price},
-                headers: {
-                  'X-RapidAPI-Key': 'cac728165dmsh6972b6acff9e936p10ac85jsn408d4f3bcf48',
-                  'X-RapidAPI-Host': 'currency-exchange.p.rapidapi.com'
-                }
-              })
+            // const currency = await axios({
+            //     method: 'GET',
+            //     url: 'https://currency-exchange.p.rapidapi.com/exchange',
+            //     params: {from: 'USD', to: 'IDR', q: req.body.price},
+            //     headers: {
+            //       'X-RapidAPI-Key': 'cac728165dmsh6972b6acff9e936p10ac85jsn408d4f3bcf48',
+            //       'X-RapidAPI-Host': 'currency-exchange.p.rapidapi.com'
+            //     }
+            //   })
 
             //   console.log(currency.data, '<<<< cek price');
 
@@ -188,10 +188,13 @@ class Controller{
                 serverKey : process.env.MIDTRANS_SK
             });
 
+            let price = Math.round(req.body.price * 15348)
+            console.log(price, '<<<<<< cek price');
+
             let parameter = {
                 "transaction_details": {
                     "order_id": req.body.code,
-                    "gross_amount": Math.round(currency.data)
+                    "gross_amount": price
                 },
                 "credit_card":{
                     "secure" : true
@@ -203,7 +206,8 @@ class Controller{
             };
          
             const midtrans = await snap.createTransaction(parameter)
-            // console.log(midtrans.token, '<<<< token ok');
+            console.log(midtrans, '<<<< token data');
+            console.log(midtrans.token, '<<<< token ok');
 
             req.body.UserId = req.user.id
             const newMyBook = await MyBook.create(req.body)
