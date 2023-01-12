@@ -28,6 +28,9 @@ const errorHandler = (err, req, res, next) => {
   } else if (err.name === "Height cannot be smaller than 130 or bigger than 230") {
     code = 400;
     message = "Height cannot be smaller than 130 or bigger than 230";
+  } else if (err.name === "Invalid url") {
+    code = 400;
+    message = "Invalid url";
   }
 
   res.status(code).json({ message });
