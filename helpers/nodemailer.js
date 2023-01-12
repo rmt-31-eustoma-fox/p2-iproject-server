@@ -13,7 +13,7 @@ const send = (email) => {
         from: 'apotekbrotonegoro@gmail.com',
         to: `${email}`,
         subject: 'thanks for register',
-        html: '<h1>Thanks for register, please login</h1>'
+        html: '<h1>Thanks for register, please login https://iproject-2c809.web.app/login</h1>'
     }
 
     transporter.sendMail(mailOption, (err, info) => {
