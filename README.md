@@ -9,16 +9,10 @@ List of Available Endpoints:
 - `POST /register`
 - `POST /Login`
 - `POST /sign`
-- `GET /today/`
 - `POST /today/todo`
 - `POST /today/todo/:todoid/todolist`
 - `PATCH /today/todo/:todoid/todolist:listid`
 - `DELETE /today/todo/:todoid/todolist:listid`
-- `DELETE /today/todo/:todoid`
-- `POST /today/category`
-- `GET /today/category`
-- `DELETE /today/category/:categoryid`
-- `GET /today/todo/:todoid`
 - `GET /today/todo/:todoid/todolist`
 - `GET /today/geolocation`
 - `GET /today/gempa`
@@ -104,6 +98,29 @@ _400 - Bad Request_
 ]
 ```
 
-### GET /Today
+### POST /today/Category
 
-####
+#### Descrption
+
+add todo list
+
+#### Request
+
+- body
+
+```json
+
+{
+    "statuscode": 200,
+    "message": "category created",
+    "data": {
+        "id": Integer,
+        "nameCategory": String,
+        "updatedAt": Date,
+        "createdAt": Date,
+    }
+}
+
+```
+
+###--belum selesai
