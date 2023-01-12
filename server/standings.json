@@ -1,0 +1,102 @@
+[
+    {
+      "position": 1,
+      "DriverId": 25,
+      "points": 454
+    },
+    {
+      "position": 2,
+      "DriverId": 34,
+      "points": 308
+    },
+    {
+      "position": 3,
+      "DriverId": 10,
+      "points": 305
+    },
+    {
+      "position": 4,
+      "DriverId": 51,
+      "points": 275
+    },
+    {
+      "position": 5,
+      "DriverId": 24,
+      "points": 246
+    },
+    {
+      "position": 6,
+      "DriverId": 20,
+      "points": 240
+    },
+    {
+      "position": 7,
+      "DriverId": 49,
+      "points": 122
+    },
+    {
+      "position": 8,
+      "DriverId": 28,
+      "points": 92
+    },
+    {
+      "position": 9,
+      "DriverId": 4,
+      "points": 81
+    },
+    {
+      "position": 10,
+      "DriverId": 5,
+      "points": 49
+    },
+    {
+      "position": 11,
+      "DriverId": 14,
+      "points": 37
+    },
+    {
+      "position": 12,
+      "DriverId": 19,
+      "points": 37
+    },
+    {
+      "position": 13,
+      "DriverId": 2,
+      "points": 25
+    },
+    {
+      "position": 14,
+      "DriverId": 36,
+      "points": 23
+    },
+    {
+      "position": 15,
+      "DriverId": 31,
+      "points": 18
+    },
+    {
+      "position": 16,
+      "DriverId": 80,
+      "points": 12
+    },
+    {
+      "position": 17,
+      "DriverId": 82,
+      "points": 12
+    },
+    {
+      "position": 18,
+      "DriverId": 83,
+      "points": 6
+    },
+    {
+      "position": 19,
+      "DriverId": 50,
+      "points": 4
+    },
+    {
+      "position": 20,
+      "DriverId": 61,
+      "points": 2
+    }
+  ]
