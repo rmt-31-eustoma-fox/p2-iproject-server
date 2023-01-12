@@ -8,7 +8,7 @@ class TeamController {
     try {
       const { data, status } = await nba.get(url);
       if (data.results < 1) throw { name: "teams_not_found" };
-      let sendData = {};
+      let sendData = data.response;
 
       if (id) sendData = data.response[0];
 

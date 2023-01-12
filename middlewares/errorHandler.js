@@ -1,7 +1,6 @@
 const errorHandler = async (err, req, res, next) => {
   let code = 500;
   let message = "Internal Server Error";
-  console.log(err);
 
   switch (err.name) {
     case "players_not_found":
@@ -19,7 +18,7 @@ const errorHandler = async (err, req, res, next) => {
       break;
   }
 
-  res.status(code).json({ message, err });
+  res.status(code).json({ message });
 };
 
 module.exports = errorHandler;

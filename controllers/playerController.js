@@ -2,16 +2,16 @@ const nba = require("../helpers/axios");
 
 class PlayerController {
   static async searchPlayers(req, res, next) {
-    const { search, id } = req.query;
+    const { search, id, team } = req.query;
     let url = `/players`;
     if (search) url += `?search=${search}`;
     if (id) url += `?id=${id}`;
+    if (team) url += `?season=2022&team=${team}`;
     try {
       const { data, status } = await nba.get(url);
       if (data.results < 1) throw { name: "players_not_found" };
-      let sendData = {};
+      let sendData = data.response;
 
-      if (search) sendData = data.response;
       if (id) sendData = data.response[0];
 
       res.status(status).json(sendData);
