@@ -18,7 +18,6 @@ const autentification = async (req, res, next) => {
       username: findId.fullname,
       role: findId.role,
     };
-    console.log(findId);
     next();
   } catch (error) {
     next(error);

@@ -90,10 +90,7 @@ class Today {
       const { id } = req.user;
       const allTodoById = await Todolist.findAll({
         where: { [Op.and]: [{ TodoId: todoid }, { UserId: id }] },
-        include: [
-          { model: Todo, attributes: { exclude: ['UserId'] } },
-          { model: User, attributes: { exclude: ['password'] } },
-        ],
+        include: [{ model: Todo, attributes: { exclude: ['UserId'] } }],
       });
       if (allTodoById.length == 0) {
         throw { name: 'not_found' };
@@ -117,24 +114,15 @@ class Today {
     try {
       const { todoid } = req.params;
       const getTodo = await Todo.findAll({ where: { id: todoid }, include: [{ model: Todolist }] });
+      if (getTodo.length == 0) {
+        throw { name: 'not_found' };
+      }
       res.status(200).json({ statuscode: 200, data: getTodo });
     } catch (error) {
       next(error);
     }
   }
-  static async geolocation(req, res, next) {
-    try {
-      const getlocation = await axios.get('https://api.ipgeolocation.io/ipgeo', {
-        params: {
-          apiKey: '50dc20dc04d74e048b1600a751933f57',
-        },
-      });
-      res.status(200).json({ statuscode: 200, data: getlocation.data });
-    } catch (error) {
-      // console.log(error);
-      next(error);
-    }
-  }
+
   static async handleGoogleSignIn(req, res, next) {
     try {
       // console.log(req);
@@ -175,7 +163,7 @@ class Today {
       // console.log(req.params);
       const { listid } = req.params;
       const status = await Todolist.update({ status: 'complete' }, { where: { id: listid } });
-      res.status(201).json({ statuscode: 200, message: 'success update' });
+      res.status(201).json({ statuscode: 201, message: 'success update' });
     } catch (error) {
       // console.log(e);
       next(error);
