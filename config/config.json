@@ -1,0 +1,28 @@
+{
+  "development": {
+    "database": {
+      "url": "mongodb://127.0.0.1:27017/myapp4",
+      "options": {
+        "useNewUrlParser": true,
+        "useUnifiedTopology":true
+      }
+    }
+  },
+  "test": {
+    "database": {
+      "url": "mongodb://localhost/mongoose_test",
+      "options": {
+        "useNewUrlParser": true
+      }
+    }
+  },
+  "production": {
+    "database": {
+      "url":"mongodb+srv://ruend:ruend@trimvi.xenurek.mongodb.net/?retryWrites=true&w=majority",
+      "options": {
+        "useNewUrlParser": true,
+        "dbName":"myapp4"
+      }
+    }
+  }
+}
