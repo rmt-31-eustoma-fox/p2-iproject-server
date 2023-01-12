@@ -1,3 +1,4 @@
+const Index = require('../controllers');
 const Today = require('../controllers/today');
 const authorization = require('../middlewares/authorization');
 
@@ -18,5 +19,6 @@ router.get('/todo/:todoid', Today.getTodo);
 router.get('/todo/:todoid/todolist', Today.getTodolist);
 
 router.get('/geolocation', Today.geolocation);
+router.get('/gempa', Today.gempaterbaru);
 
 module.exports = router;

@@ -3,6 +3,7 @@ const { User } = require('../models');
 
 const autentification = async (req, res, next) => {
   try {
+    // console.log(req.headers.access_token);
     const { access_token } = req.headers;
     if (!access_token) {
       throw { name: 'invalid_token' };
@@ -17,6 +18,7 @@ const autentification = async (req, res, next) => {
       username: findId.fullname,
       role: findId.role,
     };
+    console.log(findId);
     next();
   } catch (error) {
     next(error);

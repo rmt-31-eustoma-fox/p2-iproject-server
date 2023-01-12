@@ -21,7 +21,7 @@ class Index {
       from: 'mitrasurya7@outlook.com',
       to: mailto,
       subject: `Register successfully`,
-      html: `Thank for You join to our website`,
+      Text: `Thank for You join to our website`,
     };
 
     transporter.sendMail(mailOptions, function (err, info) {
@@ -48,20 +48,6 @@ class Index {
       next(error);
     }
   }
-  static async regSpv(req, res, next) {
-    try {
-      const { fullname, email, password, imageUrl } = req.body;
-      const regspv = await User.create({ fullname, email, password, imageUrl, role: 'supervisor' });
-      res.status(201).json({
-        statuscode: 201,
-        id: regspv.id,
-        name: regspv.fullname,
-        email: regspv.email,
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
   static async login(req, res, next) {
     try {
       const { email, password } = req.body;
@@ -79,9 +65,19 @@ class Index {
         throw { name: 'invalid_data' };
       }
       const token = jwtSign({ id: logUser.id, username: logUser.fullname, role: logUser.role });
-      res.status(201).json({ statuscode: 201, access_token: token });
+      res.status(201).json({ statuscode: 201, access_token: token, image: logUser.imageUrl, fullname: logUser.fullname });
     } catch (error) {
       next(error);
+    }
+  }
+  static async gempaterbaru(req, res, next) {
+    {
+      try {
+        const dataGempa = await axios.get('https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json');
+        res.status(200).json({ data: dataGempa });
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 }

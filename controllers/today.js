@@ -15,7 +15,9 @@ class Today {
   }
   static async destroyCategory(req, res, next) {
     try {
+      // console.log(req.params);
       const { categoryid } = req.params;
+
       const destroyCategory = await Category.destroy({ where: { id: categoryid } });
       if (!destroyCategory) {
         throw { name: 'not_found' };
@@ -42,7 +44,7 @@ class Today {
       const addData = await Todo.create({ nameTodo, dateStart: date, dateEnd, CategoryId, UserId: id, level, statusTodo: role });
       res.status(201).json({ statuscode: 200, message: 'todo success create', data: addData });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       next(error);
     }
   }
@@ -78,7 +80,7 @@ class Today {
       res.status(200).json({ statuscode: 200, message: 'todolist created success', data: addTodoList });
     } catch (error) {
       // res.status(200).json(error)
-      console.log(error);
+      // console.log(error);
       next(error);
     }
   }
@@ -98,7 +100,7 @@ class Today {
       }
       res.status(200).json({ statuscode: 200, data: allTodoById });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       next(error);
     }
   }
@@ -148,7 +150,7 @@ class Today {
         //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
       });
       const { email, name, picture } = ticket.getPayload();
-      console.log(picture);
+      // console.log(picture);
       const [user, create] = await User.findOrCreate({
         where: { email },
         defaults: {
@@ -170,13 +172,23 @@ class Today {
   }
   static async updateStatus(req, res, next) {
     try {
-      console.log(req.params);
+      // console.log(req.params);
       const { listid } = req.params;
       const status = await Todolist.update({ status: 'complete' }, { where: { id: listid } });
       res.status(201).json({ statuscode: 200, message: 'success update' });
     } catch (error) {
-      console.log(e);
+      // console.log(e);
       next(error);
+    }
+  }
+  static async gempaterbaru(req, res, next) {
+    {
+      try {
+        const dataGempa = await axios.get('https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json');
+        res.status(200).json({ data: dataGempa.data });
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 }

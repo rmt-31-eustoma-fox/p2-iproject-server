@@ -10,6 +10,8 @@ const errorMsg = (error, req, res, next) => {
     res.status(404).json({ message: 'data not found' });
   } else if (error.name == 'forbidden') {
     res.status(403).json({ message: 'not authorize' });
+  } else {
+    res.status(500).json({ message: 'internal server error' });
   }
 };
 module.exports = errorMsg;
