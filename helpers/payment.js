@@ -58,8 +58,8 @@ const makeSubscription = async(userId,userData,amount,recurPlan) => {
               interval_count:1,
               total_recurrence:10
             },
-            success_return_url:"https://www.google.com",
-            failure_return_url:"https://www.google.com"
+            success_return_url:"https://invidual-d3eac.web.app/subsinfo/success",
+            failure_return_url:"https://invidual-d3eac.web.app/subsinfo/failure"
           }
         // console.log(plansData);
 

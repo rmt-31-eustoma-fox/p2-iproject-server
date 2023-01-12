@@ -44,15 +44,6 @@ class Controller {
         }
     }
 
-    static getMovies = async(req,res,next) => {
-        try {
-            const movies = await Movie.find({}, {__v:0});
-            res.status(200).json({movies})
-        } catch (error) {
-            next(error)
-        }
-    }
-
     static getMoviesAndGenre = async(req,res,next) => {
         try {
             const movgen = await Movie.find({},{__v:0}).populate({path:"genres", select:{__v:0}});
@@ -122,8 +113,8 @@ class Controller {
     static updateSubs = async(req,res,next) => {
         const UserId = req.user;
         try {
-            const upRole = await User.updateOne({_id:UserId}, {role:"Subscribed"});
-            res.status(200).json({message:"Success update Subscription",status:upRole});
+            await User.updateOne({_id:UserId}, {role:"Subscribed"});
+            res.status(200).json({message:"Success update Subscription"});
         } catch (error) {
             next(error);
         }
