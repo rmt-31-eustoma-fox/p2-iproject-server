@@ -180,10 +180,10 @@ class Controller {
 			if (!created) {
 				res
 					.status(200)
-					.json({ message: "You have added this show to watchlist" });
+					.json({ message: "You had added this show to watchlist" });
 			} else {
 				const show = data.tvShow;
-				res.status(201).json({ show });
+				res.status(201).json({ message: "Added successfully" });
 			}
 		} catch (error) {
 			if (error.name == "NotFound") {
@@ -351,7 +351,7 @@ class Controller {
 				where: { UserId: userId, ShowId: showId },
 			});
 			if (!favorite)
-				throw { name: "NotFound", code: 404, message: "TV show not found" };
+				throw { name: "NotFound", code: 404, message: "Show not found" };
 			await favorite.update({
 				status: "Watched",
 			});
