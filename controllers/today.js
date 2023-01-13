@@ -91,6 +91,7 @@ class Today {
       const allTodoById = await Todolist.findAll({
         where: { [Op.and]: [{ TodoId: todoid }, { UserId: id }] },
         include: [{ model: Todo, attributes: { exclude: ['UserId'] } }],
+        ORDER: ['id', 'DESC'],
       });
       if (allTodoById.length == 0) {
         throw { name: 'not_found' };
@@ -151,8 +152,8 @@ class Today {
       });
       res.status(200).json({
         access_token: jwtSign({ id: user.id, role: user.role }),
-        username: user.username,
-        role: user.role,
+        username: user.fullname,
+        image: user.imageUrl,
       });
     } catch (error) {
       throw error;
