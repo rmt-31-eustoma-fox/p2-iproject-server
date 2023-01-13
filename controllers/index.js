@@ -1,4 +1,4 @@
-const { User, MyBook } = require('../models')
+const { User, MyBook, Order } = require('../models')
 const Mailjet = require('node-mailjet')
 const { comparePw, signToken } = require('../helpers')
 const mailjet = new Mailjet.apiConnect(process.env.API_KEY_MAILJET, process.env.SECRET_KEY_MAILJET)
@@ -160,27 +160,56 @@ class Controller{
         }
     }
 
-    static async addMyBook(req, res, next){
+    static async addOrder(req, res, next){
+        try {
+            const oldOrder = await Order.findAll({
+                where: {
+                    [Op.and]: [{ UserId: req.user.id }, { code: req.body.code }]
+                }
+            })
+            if(oldOrder.length != 0) throw {name: "DuplicateOrder"}
+
+            req.body.UserId = req.user.id
+            const order = await Order.create(req.body)
+
+            res.status(201).json(order)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async getOrders(req, res, next){
+        try {
+            const orders = await Order.findAll({
+                where: {UserId: req.user.id},
+                order: [['createdAt', 'desc']]
+            })
+
+            res.status(200).json(orders)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async deleteOrder(req, res, next){
+        try {
+            await Order.destroy({where: {id: req.params.id}})
+
+            res.status(200).json({message: "Order successfully paid"})
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async payment(req, res, next){
         try {
             const oldMyBook = await MyBook.findAll({
                 where: {
                     [Op.and]: [{ UserId: req.user.id }, { code: req.body.code }]
                 }
             })
-
             if(oldMyBook.length != 0) throw {name: "DuplicateMyBook"}
 
-            // const currency = await axios({
-            //     method: 'GET',
-            //     url: 'https://currency-exchange.p.rapidapi.com/exchange',
-            //     params: {from: 'USD', to: 'IDR', q: req.body.price},
-            //     headers: {
-            //       'X-RapidAPI-Key': 'cac728165dmsh6972b6acff9e936p10ac85jsn408d4f3bcf48',
-            //       'X-RapidAPI-Host': 'currency-exchange.p.rapidapi.com'
-            //     }
-            //   })
-
-            //   console.log(currency.data, '<<<< cek price');
 
             let snap = new midtransClient.Snap({
                 // Set to true if you want Production Environment (accept real transaction).
@@ -188,12 +217,11 @@ class Controller{
                 serverKey : process.env.MIDTRANS_SK
             });
 
-            let price = Math.round(req.body.price * 15348)
-            console.log(price, '<<<<<< cek price');
+            let price = Math.ceil(req.body.price * 15348)
 
             let parameter = {
                 "transaction_details": {
-                    "order_id": req.body.code,
+                    "order_id": new Date().toLocaleString().replace(/\s/g, ''),
                     "gross_amount": price
                 },
                 "credit_card":{
@@ -206,15 +234,21 @@ class Controller{
             };
          
             const midtrans = await snap.createTransaction(parameter)
-            console.log(midtrans, '<<<< token data');
-            console.log(midtrans.token, '<<<< token ok');
 
+            res.status(201).json(midtrans)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async addMyBook(req, res, next){
+        try {
             req.body.UserId = req.user.id
             const newMyBook = await MyBook.create(req.body)
 
             const mybook = await MyBook.findByPk(newMyBook.id, {attributes: {exclude: ['createdAt', 'updatedAt']}})
 
-            res.status(201).json(midtrans)
+            res.status(201).json(mybook)
         } catch (error) {
             next(error)
         }

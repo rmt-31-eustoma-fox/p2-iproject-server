@@ -1,4 +1,4 @@
-const { User, MyBook } = require("../models")
+const { User, MyBook, Order } = require("../models")
 const { verifyToken } = require("../helpers")
 
 const auth = async (req, res, next) => {
@@ -41,6 +41,18 @@ const authorize = async (req, res, next) => {
     }
 }
 
+const authDelOrder = async (req, res, next) => {
+    try {
+        const order = await Order.findByPk(req.params.id)
+        if(!order) throw {name: "DataNotFound"}
+        if(order.UserId != req.user.id) throw {name: "Forbidden"}
+
+        next()
+    } catch (err) {
+        next(err)
+    }
+}
+
 const errHandler = (error, req, res, next) => {
     let code = 500
     let message = "Internal server error"
@@ -69,9 +81,12 @@ const errHandler = (error, req, res, next) => {
     } else if (error.name === "RequiredDataQuery") {
         code = 400
         message = "Keyword is required"
+    } else if (error.name === "DuplicateOrder") {
+        code = 400
+        message = "The book already exist in order list"
     }
 
     res.status(code).json({message: message})
 }
 
-module.exports = { auth, authorize, errHandler }
+module.exports = { auth, authorize, errHandler, authDelOrder }
