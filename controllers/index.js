@@ -195,7 +195,7 @@ class Controller{
         try {
             await Order.destroy({where: {id: req.params.id}})
 
-            res.status(200).json({message: "Order successfully paid"})
+            res.status(200).json({message: "Order successfully removed"})
         } catch (error) {
             next(error)
         }
